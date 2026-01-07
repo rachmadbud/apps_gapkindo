@@ -11,6 +11,7 @@ use App\Http\Controllers\MriController;
 use App\Http\Controllers\KEBController;
 use App\Http\Controllers\Surat\SuratKeluarController;
 use App\Http\Controllers\Surat\SuratMasukController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,13 @@ use App\Http\Controllers\Surat\SuratMasukController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/migrate-fresh', function () {
+  Artisan::call('migrate:fresh --seed');
+
+  return 'Migrate fresh berhasil dijalankan!';
+});
+
 
 Route::get('login', [App\Http\Controllers\CustomAuthController::class, 'index'])->name('login')->middleware('guest');
 Route::post('custom-login', [App\Http\Controllers\CustomAuthController::class, 'customLogin'])->name('login.custom');
