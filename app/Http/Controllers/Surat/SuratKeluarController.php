@@ -64,7 +64,7 @@ class SuratKeluarController extends Controller
             'created_at' => now(),
         ]);
 
-        toast(app(CustomClass::class)->notifSuksesBukaIPNyangkut(), 'success');
+        toast(app(CustomClass::class)->notifSuksesTambah(), 'success');
         return redirect()->action([SuratKeluarController::class, 'index']);
     }
 }
