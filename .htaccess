@@ -1,6 +1,13 @@
-DocumentRoot /var/www/apps-gapkindo/public
+Options -Indexes
 
-<Directory /var/www/apps-gapkindo/public>
-AllowOverride All
-Require all granted
-</Directory>
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Jangan rewrite kalau file/folder ada
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Arahkan semua ke public/
+    RewriteRule ^(.*)$ public/$1 [L]
+
+</IfModule>
