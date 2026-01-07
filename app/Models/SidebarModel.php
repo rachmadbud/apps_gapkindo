@@ -51,45 +51,17 @@ class SidebarModel extends Model
 
         foreach ($stmtMenuId as $dataMenuId) {
             $regIdMenu = $dataMenuId->id;
-            // $stmtRoleMenu = DB::select("select count(id) as jum_menu from tbl_master_role where id = " . $idRole . " and id_menu REGEXP '[[:<:]]" . $regIdMenu . "[[:>:]]' ");
-            $stmtRoleMenu = DB::select(
-                "SELECT COUNT(id) AS jum_menu
-     FROM tbl_master_role
-     WHERE id = ?
-       AND ? = ANY (string_to_array(id_menu, ',')::int[])",
-                [
-                    $idRole,
-                    $regIdMenu
-                ]
-            );
+            $stmtRoleMenu = DB::select("select count(id) as jum_menu from tbl_master_role where id = " . $idRole . " and id_menu REGEXP '[[:<:]]" . $regIdMenu . "[[:>:]]' ");
         }
 
         foreach ($stmtSubMenuId as $dataSubMenuId) {
             $regIdSubMenu = $dataSubMenuId->id;
-            $stmtRoleSubMenu = DB::select(
-                "SELECT COUNT(id) AS jum_submenu
-     FROM tbl_master_role
-     WHERE id = ?
-       AND ? = ANY (string_to_array(id_submenu, ',')::int[])",
-                [
-                    $idRole,
-                    $regIdSubMenu
-                ]
-            );
+            $stmtRoleSubMenu = DB::select("select count(id) as jum_submenu from tbl_master_role where id = " . $idRole . " and id_submenu REGEXP '[[:<:]]" . $regIdSubMenu . "[[:>:]]' ");
         }
 
         (isset($stmtRoleMenu[0]->jum_menu) && $stmtRoleMenu[0]->jum_menu > 0) ? $aksesMenu = 1 : $aksesMenu = 0;
         (isset($stmtRoleSubMenu[0]->jum_submenu) && $stmtRoleSubMenu[0]->jum_submenu > 0) ? $aksesSubMenu = 1 : $aksesSubMenu = 0;
 
-
-        // dd([
-        //     'stmtMenu' => $stmtMenu,
-        //     'stmtSubMenu' => $stmtSubMenu,
-        //     'stmtMenuId' => $stmtMenuId,
-        //     'stmtSubMenuId' => $stmtSubMenuId,
-        //     'aksesMenu' => $aksesMenu,
-        //     'aksesSubMenu' => $aksesSubMenu
-        // ]);
         return [
             'stmtMenu' => $stmtMenu,
             'stmtSubMenu' => $stmtSubMenu,
