@@ -29,7 +29,7 @@
                                         <th>Tanggal</th>
                                         <th>No Surat</th>
                                         <th>Perihal</th>
-                                        <th>Ditujukan</th>
+                                        <th>Tujukan</th>
                                         <th>Lampiran</th>
                                         <th>created_by</th>
                                         <th>Aksi</th>
