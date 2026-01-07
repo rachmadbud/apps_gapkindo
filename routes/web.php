@@ -24,11 +24,10 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Route::get('/migrate-fresh', function () {
-  Artisan::call('migrate:fresh --seed');
-
-  return 'Migrate fresh berhasil dijalankan!';
-});
+// Route::get('/migrate-fresh', function () {
+//   Artisan::call('migrate:fresh --seed');
+//   return 'Migrate fresh berhasil dijalankan!';
+// });
 
 
 Route::get('login', [App\Http\Controllers\CustomAuthController::class, 'index'])->name('login')->middleware('guest');
