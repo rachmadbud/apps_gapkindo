@@ -13,7 +13,7 @@ class SuratKeluar extends Model
     public function getDataSurat()
     {
         $data = DB::table('surat_keluar')
-            ->orderBy('tanggal', 'desc')
+            ->orderBy('created_at', 'asc')
             ->get();
 
         return $data;
