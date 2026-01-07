@@ -38,7 +38,7 @@
                                 <tbody>
                                     @foreach ($dataSurat as $item)
                                         <tr>
-                                            <td>1</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->tanggal }}</td>
                                             <td>{{ $item->nomor_surat }}</td>
                                             <td>{{ $item->perihal }}</td>
