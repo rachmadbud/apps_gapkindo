@@ -18,4 +18,10 @@ class SuratKeluar extends Model
 
         return $data;
     }
+
+    public function getDataRow()
+    {
+        $row = DB::table('surat_keluar')->count();
+        return $row;
+    }
 }

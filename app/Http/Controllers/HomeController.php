@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\Load;
 
 use Auth;
 use Alert;
+use App\Models\SuratKeluar;
+use App\Models\SuratMasuk;
 use Illuminate\Support\Facades\App;
 
 
@@ -29,6 +31,8 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->modelSuratMasuk = new SuratMasuk();
+        $this->modelSuratKeluar = new SuratKeluar();
     }
 
     /**
@@ -43,8 +47,10 @@ class HomeController extends Controller
         $menuModel = new SidebarModel();
         $sidebarMenu = $menuModel->getMenu();
 
-
         $id = Auth::user()->id;
+
+        $stmtSuratMasuk = $this->modelSuratMasuk->getDataRow();
+        $stmtSuratKeluar = $this->modelSuratKeluar->getDataRow();
 
         $user = DB::table('users')
             ->where('id', $id)
@@ -52,7 +58,9 @@ class HomeController extends Controller
 
         return view('dashboard')
             ->with($sidebarMenu)
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('stmtSuratMasuk', $stmtSuratMasuk)
+            ->with('stmtSuratKeluar', $stmtSuratKeluar);
     }
 
     // untuk manajemen menu
