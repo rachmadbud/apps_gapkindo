@@ -8,7 +8,7 @@
         @include('errors.405')
     @else
         <div class="container-fluid">
-            <h3 class="text-black-50">Manajemen Surat Keluar</h3>
+            <h3 class="text-black-50">Agenda Surat Keluar</h3>
 
             <div class="row">
                 <div class="col-12">
@@ -39,7 +39,7 @@
                                     @foreach ($dataSurat as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->tanggal }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
                                             <td>{{ $item->nomor_surat }}</td>
                                             <td>{{ $item->perihal }}</td>
                                             <td>{{ $item->ditujukan }}</td>

@@ -38,7 +38,7 @@
                                 <tbody>
                                     @foreach ($dataSurat as $item)
                                         <tr>
-                                            <td>{{ $item->tanggal }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
                                             <td>{{ $item->nomor_agenda }}</td>
                                             <td>{{ $item->nomor_surat }}</td>
                                             <td>{{ $item->pengirim }}</td>
