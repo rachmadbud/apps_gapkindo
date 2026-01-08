@@ -15,7 +15,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <a href="{{ app(CustomClass::class)->rootApp() }}/asxasx" class="btn btn-info"><i
+                                <a href="{{ app(CustomClass::class)->rootApp() }}/form/suratMasuk" class="btn btn-info"><i
                                         class='fa fa-plus'></i></a>
                             </h3>
                         </div>
@@ -32,26 +32,26 @@
                                         <th>Perihal</th>
                                         <th>Lampiran</th>
                                         <th>created_by</th>
-                                        <th>updated_by</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>okaoskc</td>
-                                        <td>okaoskc</td>
-                                        <td>okaoskc</td>
-                                        <td>okaoskc</td>
-                                        <td>okaoskc</td>
-                                        <td><a href="https://iapi.or.id/wp-content/uploads/2020/04/contoh.pdf"
-                                                target="_blank" class="mailbox-attachment-name text-primary"><i
-                                                    class="fas fa-paperclip"></i><u> Lampiran</u></a></td>
-                                        <td>okaoskc</td>
-                                        <td>okaoskc</td>
-                                        <td align="center"><a href="/suratMasuk/edit/" class="btn btn-info"><i
-                                                    class='fa fa-pen'></i></a></td>
-                                        </td>
-                                    </tr>
+                                    @foreach ($dataSurat as $item)
+                                        <tr>
+                                            <td>{{ $item->tanggal }}</td>
+                                            <td>{{ $item->nomor_agenda }}</td>
+                                            <td>{{ $item->nomor_surat }}</td>
+                                            <td>{{ $item->pengirim }}</td>
+                                            <td>{{ $item->perihal }}</td>
+                                            <td><a href="{{ app(CustomClass::class)->rootApp() }}/suratMasuk/lampiran/{{ $item->file_surat }}"
+                                                    target="_blank" class="mailbox-attachment-name text-primary"><i
+                                                        class="fas fa-paperclip"></i><u> Lampiran</u></a></td>
+                                            <td>{{ $item->created_by }}</td>
+                                            <td align="center"><a href="/suratMasuk/edit/" class="btn btn-info"><i
+                                                        class='fa fa-pen'></i></a></td>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
 

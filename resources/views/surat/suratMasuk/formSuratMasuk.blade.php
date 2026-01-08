@@ -8,14 +8,26 @@
     @else
         <div class="card card-dark">
             <div class="card-header">
-                <h3 class="card-title">Form Surat Keluar</h3>
+                <h3 class="card-title">Form Surat Masuk</h3>
             </div>
 
+            @if (count($errors) > 0)
+                <div class="card-footer">
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
             @if (isset($stmtGetUnitKerja))
-                <form id="quickForm" action="{{ app(CustomClass::class)->rootApp() }}/form/suratKeluar/edit" method="post"
+                <form id="quickForm" action="{{ app(CustomClass::class)->rootApp() }}/form/suratMasuk/submit" method="post"
                     enctype="multipart/form-data">
                 @else
-                    <form id="quickForm" action="{{ app(CustomClass::class)->rootApp() }}/form/suratKeluar/submit"
+                    <form id="quickForm" action="{{ app(CustomClass::class)->rootApp() }}/form/suratMasuk/submit"
                         method="post" enctype="multipart/form-data">
             @endif
 
@@ -31,6 +43,15 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Nomor Agenda</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control @if ($errors->has('nomorAgenda')) is-invalid @endif"
+                            name="nomorAgenda"
+                            value="{{ isset($dataGetUnitKerja) ? $dataGetUnitKerja->nomor_agenda : '' }} {{ old('nomorAgenda') }}"
+                            required>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Nomor Surat</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control @if ($errors->has('nomorSurat')) is-invalid @endif"
@@ -40,20 +61,20 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Pengirim</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control @if ($errors->has('pengirim')) is-invalid @endif"
+                            name="pengirim"
+                            value="{{ isset($dataGetUnitKerja) ? $dataGetUnitKerja->pengirim : '' }} {{ old('pengirim') }}"
+                            required>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Perihal</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control @if ($errors->has('perihal')) is-invalid @endif"
                             name="perihal"
                             value="{{ isset($dataGetUnitKerja) ? $dataGetUnitKerja->perihal : '' }} {{ old('perihal') }}"
-                            required>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Ditujukan</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control @if ($errors->has('ditujukan')) is-invalid @endif"
-                            name="ditujukan"
-                            value="{{ isset($dataGetUnitKerja) ? $dataGetUnitKerja->ditujukan : '' }} {{ old('ditujukan') }}"
                             required>
                     </div>
                 </div>
