@@ -13,7 +13,7 @@ class SuratMasuk extends Model
     public function getDataSurat()
     {
         $data = DB::table('surat_masuks')
-            ->orderBy('id', 'desc')
+            ->latest('id')
             ->get();
 
         return $data;
