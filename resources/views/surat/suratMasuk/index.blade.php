@@ -39,8 +39,8 @@
                                 <tbody>
                                     @foreach ($dataSurat as $item)
                                         <tr>
-                                            <td align="center">{{ $loop->iteration }}</td>
-                                            <td>{{ app(CustomClass::class)->formatTanggalIndo($item->tanggal_surat) }}</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
                                             <td>{{ $item->nomor_agenda }}</td>
                                             <td>{{ $item->nomor_surat }}</td>
                                             <td>{{ $item->pengirim }}</td>
