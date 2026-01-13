@@ -25,6 +25,7 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr align="center" class="alert-dark">
+                                        <th>No.</th>
                                         <th>Tanggal</th>
                                         <th>Nomor Agenda</th>
                                         <th>Nomor Surat</th>
@@ -38,7 +39,7 @@
                                 <tbody>
                                     @foreach ($dataSurat as $item)
                                         <tr>
-                                            <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
+                                            <td align="center">{{ $loop->iteration }}</td>
                                             <td>{{ $item->nomor_agenda }}</td>
                                             <td>{{ $item->nomor_surat }}</td>
                                             <td>{{ $item->pengirim }}</td>
