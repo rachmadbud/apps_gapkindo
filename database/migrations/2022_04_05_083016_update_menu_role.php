@@ -15,7 +15,7 @@ class UpdateMenuRole extends Migration
     {
         DB::table('tbl_master_role')
             ->where('nama', 'Superuser')
-            ->update(['id_menu' => '1,2,3,4']);
+            ->update(['id_menu' => '1,2,3,4,5']);
     }
 
     /**
@@ -27,6 +27,6 @@ class UpdateMenuRole extends Migration
     {
         DB::table('tbl_master_role')
             ->where('nama', 'Superuser')
-            ->update(['id_menu' => '1,2,3,4']);
+            ->update(['id_menu' => '1,2,3,4,5']);
     }
 }

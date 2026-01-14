@@ -21,7 +21,7 @@ class CreateTblMasterRoleTable extends Migration
             $table->timestamps();
         });
 
-        DB::table('tbl_master_role')->insert(['nama' => 'Superuser', 'id_menu' => '1,2,3', 'id_submenu' => '1,2,3,4,5,6,7,8']);
+        DB::table('tbl_master_role')->insert(['nama' => 'Superuser', 'id_menu' => '1,2,3,4,5', 'id_submenu' => '1,2,3,4,5,6,7,8']);
     }
 
     /**

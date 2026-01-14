@@ -262,4 +262,13 @@ class CustomClass
     {
         return "E-Learning yang anda pilih sudah di kunci";
     }
+
+    public static function formatRibuan($angka)
+    {
+        if ($angka === null || $angka === '') {
+            return '-';
+        }
+
+        return number_format((float) $angka, 0, ',', '.');
+    }
 }

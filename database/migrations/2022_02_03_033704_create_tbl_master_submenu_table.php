@@ -33,8 +33,6 @@ class CreateTblMasterSubmenuTable extends Migration
         DB::table('tbl_master_submenu')->insert(['id' => '8', 'nama' => 'LogActivity', 'id_menu' => '3', 'link' => '/manajemenUserActivity', 'status_data' => '1', 'urutan' => '8']);
         DB::table('tbl_master_submenu')->insert(['id' => '9', 'nama' => 'Surat Masuk', 'id_menu' => '4', 'link' => '/suratMasukx', 'status_data' => '1', 'urutan' => '9']);
         DB::table('tbl_master_submenu')->insert(['id' => '10', 'nama' => 'Surat Keluar', 'id_menu' => '4', 'link' => '/suratKeluarx', 'status_data' => '1', 'urutan' => '10']);
-
-        DB::table('tbl_master_submenu')->insert(['id' => '11', 'nama' => 'Ekspor & Impor Data', 'id_menu' => '5', 'link' => '/eksporImporData', 'status_data' => '1', 'urutan' => '11']);
     }
 
     /**

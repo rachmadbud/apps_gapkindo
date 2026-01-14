@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\DataKaret\DataController;
+use App\Http\Controllers\DataKaret\HomeController as DataKaretHomeController;
+use App\Http\Controllers\DataKaret\ProduksidanKonsumsiKaretAlamDuniaController;
 use App\Http\Controllers\GratifikasiOnlineCtrl;
 use App\Http\Controllers\ElearningController;
 use App\Http\Controllers\HomeController;
@@ -111,3 +114,18 @@ Route::post('/form/suratKeluar/submit', [SuratKeluarController::class, 'formSura
 
 Route::get('/form/suratKeluar', [SuratKeluarController::class, 'formSuratKeluar'])->name('formSuratKeluar')->middleware('auth');
 Route::post('/form/suratKeluar/submit', [SuratKeluarController::class, 'formSuratKeluarSubmit'])->name('formSuratKeluarSubmit')->middleware('auth');
+
+/*
+|--------------------------------------------------------------------------
+| Data Karet Alam
+|--------------------------------------------------------------------------
+*/
+Route::get('/dataKaretAlam', [DataController::class, 'index'])->name('dataKaretAlam')->middleware('auth');
+
+/*
+|--------------------------------------------------------------------------
+| Data Karet Alam
+|--------------------------------------------------------------------------
+*/
+Route::get('/produksidanKonsumsiKaretAlamDunia', [ProduksidanKonsumsiKaretAlamDuniaController::class, 'index'])->name('produksidanKonsumsiKaretAlamDunia')->middleware('auth');
+Route::post('/produksidanKonsumsiKaretAlamDuniaPost', [ProduksidanKonsumsiKaretAlamDuniaController::class, 'produksidanKonsumsiKaretAlamDuniaPost'])->name('produksidanKonsumsiKaretAlamDuniaPost')->middleware('auth');
