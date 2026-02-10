@@ -9,6 +9,7 @@
   "license": "MIT",
   "require": {
     "php": "^8.2.27",
+    "barryvdh/laravel-dompdf": "^3.1",
     "doctrine/dbal": "^3.0",
     "fruitcake/laravel-cors": "dev-develop",
     "guzzlehttp/guzzle": "^7.0.1",
@@ -18,7 +19,7 @@
     "laravel/sanctum": "^3.2",
     "laravel/tinker": "^2.5",
     "maatwebsite/excel": "^3.1",
-    "phpoffice/phpspreadsheet": "^1.22",
+    "phpoffice/phpspreadsheet": "^1.29",
     "realrashid/sweet-alert": "^7.3",
     "setasign/fpdf": "^1.8",
     "setasign/fpdi": "^2.3",

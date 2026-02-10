@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\DataKaret\DataController;
+use App\Http\Controllers\DataKaret\EksporDanImporController;
 use App\Http\Controllers\DataKaret\HomeController as DataKaretHomeController;
 use App\Http\Controllers\DataKaret\ProduksidanKonsumsiKaretAlamDuniaController;
+use App\Http\Controllers\DataKaret\VolumeExporBerdasarkanNegaraTujuanController;
 use App\Http\Controllers\GratifikasiOnlineCtrl;
 use App\Http\Controllers\ElearningController;
 use App\Http\Controllers\HomeController;
@@ -15,6 +17,8 @@ use App\Http\Controllers\KEBController;
 use App\Http\Controllers\Surat\SuratKeluarController;
 use App\Http\Controllers\Surat\SuratMasukController;
 use Illuminate\Support\Facades\Artisan;
+
+use App\Http\Controllers\ExcelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +35,12 @@ use Illuminate\Support\Facades\Artisan;
 //   Artisan::call('migrate:fresh --seed');
 //   return 'Migrate fresh berhasil dijalankan!';
 // });
+Route::get('/migrate', function () {
+  abort_unless(app()->environment('local'), 403);
+
+  Artisan::call('migrate', ['--force' => true]);
+  return 'Migration sudah dijalankan!';
+});
 
 
 Route::get('login', [App\Http\Controllers\CustomAuthController::class, 'index'])->name('login')->middleware('guest');
@@ -121,6 +131,8 @@ Route::post('/form/suratKeluar/submit', [SuratKeluarController::class, 'formSura
 |--------------------------------------------------------------------------
 */
 Route::get('/dataKaretAlam', [DataController::class, 'index'])->name('dataKaretAlam')->middleware('auth');
+Route::get('/excel', [ExcelController::class, 'index']);
+Route::get('/excel-data', [ExcelController::class, 'data']);
 
 /*
 |--------------------------------------------------------------------------
@@ -129,3 +141,37 @@ Route::get('/dataKaretAlam', [DataController::class, 'index'])->name('dataKaretA
 */
 Route::get('/produksidanKonsumsiKaretAlamDunia', [ProduksidanKonsumsiKaretAlamDuniaController::class, 'index'])->name('produksidanKonsumsiKaretAlamDunia')->middleware('auth');
 Route::post('/produksidanKonsumsiKaretAlamDuniaPost', [ProduksidanKonsumsiKaretAlamDuniaController::class, 'produksidanKonsumsiKaretAlamDuniaPost'])->name('produksidanKonsumsiKaretAlamDuniaPost')->middleware('auth');
+
+
+/*
+|--------------------------------------------------------------------------
+| Data Export Karet Alam
+|--------------------------------------------------------------------------
+*/
+Route::get('/volumeEksporBerdasarkanNegaraProdusen', [VolumeExporBerdasarkanNegaraTujuanController::class, 'index'])->name('volumeEksporBerdasarkanNegaraProdusen')->middleware('auth');
+Route::post('/expor/volumeEksporBerdasarkanNegaraProdusen/upload', [VolumeExporBerdasarkanNegaraTujuanController::class, 'upload'])->name('volumeEksporBerdasarkanNegaraProdusen.upload')->middleware('auth');
+Route::get('/fileExcel/{id}', [VolumeExporBerdasarkanNegaraTujuanController::class, 'lihat'])->name('volumeEksporBerdasarkanNegaraProdusen.lihat')->middleware('auth');
+Route::put('/volumeEksporBerdasarkanNegaraProdusen/update/{id}', [VolumeExporBerdasarkanNegaraTujuanController::class, 'update'])->name('volumeEksporBerdasarkanNegaraProdusenUpdate')->middleware('auth');
+
+/*
+|--------------------------------------------------------------------------
+| EKSPOR DAN IMPOR (Sumber: Badan Pusat Statistik)
+|--------------------------------------------------------------------------
+*/
+Route::get('/ekspor-dan-impor-berdasarkan-kode-hs', [EksporDanImporController::class, 'eksporDanImporBerdasarkanKodeHS'])->name('eksporDanImporBerdasarkanKodeHS')->middleware('auth');
+Route::post('/ekspor-dan-impor-berdasarkan-kode-hs', [EksporDanImporController::class, 'eksporDanImporBerdasarkanKodeHSPost'])->name('eksporDanImporBerdasarkanKodeHS')->middleware('auth');
+Route::get('/fileExcel/{id}/ekspor-berdasarkan-kode-hs', [EksporDanImporController::class, 'lihat'])->name('eksporDanImporBerdasarkanKodeHS.lihat')->middleware('auth');
+Route::put('/ekspor-dan-impor-berdasarkan-kode-hs/{id}', [EksporDanImporController::class, 'update'])->name('eksporDanImporBerdasarkanKodeHS.update')->middleware('auth');
+
+Route::get('/ekspor-berdasarkan-pelabuhan-ekspor', [EksporDanImporController::class, 'eksporBerdasarkanPelabuhanEkspor'])->name('eksporBerdasarkanPelabuhanEkspor')->middleware('auth');
+Route::post('/ekspor-berdasarkan-pelabuhan-ekspor', [EksporDanImporController::class, 'eksporBerdasarkanPelabuhanEksporPost'])->name('eksporBerdasarkanPelabuhanEksporPost')->middleware('auth');
+Route::get('/fileExcel/{id}/ekspor-berdasarkan-pelabuhan-ekspor/lihat', [EksporDanImporController::class, 'lihatEksporBerdasarkanPelabuhanEkspor'])->name('eksporBerdasarkanPelabuhanEkspor.lihat')->middleware('auth');
+Route::put('/ekspor-berdasarkan-pelabuhan-ekspor/{id}', [EksporDanImporController::class, 'eksporBerdasarkanPelabuhanEksporUpdate'])->name('eksporBerdasarkanPelabuhanEkspor.update')->middleware('auth');
+
+Route::get('/ekspor-berdasarkan-negara-tujuan', [EksporDanImporController::class, 'eksporBerdasarkanNegaraTujuan'])->name('eksporBerdasarkanNegaraTujuan')->middleware('auth');
+Route::post('/ekspor-berdasarkan-negara-tujuan', [EksporDanImporController::class, 'eksporBerdasarkanNegaraTujuanPost'])->name('eksporBerdasarkanNegaraTujuanPost')->middleware('auth');
+Route::get('/fileExcel/{id}/ekspor-berdasarkan-negara-tujuan/lihat', [EksporDanImporController::class, 'lihatEksporBerdasarkanNegaraTujuan'])->name('eksporBerdasarkanNegaraTujuan.lihat')->middleware('auth');
+Route::put('/ekspor-berdasarkan-negara-tujuan/{id}', [EksporDanImporController::class, 'eksporBerdasarkanNegaraTujuanUpdate'])->name('eksporBerdasarkanNegaraTujuan.update')->middleware('auth');
+
+
+// ekspor-dan-impor-berdasarkan-kode-hs
