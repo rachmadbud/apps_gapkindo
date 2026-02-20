@@ -75,9 +75,9 @@ class CustomAuthController extends Controller
                 Session::put('errorLogin', $sessionErrorLogin);
 
                 if ($sessionErrorLogin >= config('secure.APP_SEKURITI_FAIL_LOGIN')) {
-                    error_log($request->email);
+                    error_log($request->name);
                     // DB::table('users')->where('email', $request->email)->update([
-                    DB::table('users')->where('name', $request->nrik)->update([
+                    DB::table('users')->where('name', $request->name)->update([
                         'password' => bcrypt('Bwwy@2023'),
                         'expired_password' => '1970-01-01',
                         'is_blokir' => '1'
