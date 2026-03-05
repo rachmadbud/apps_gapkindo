@@ -1,19 +1,14 @@
 <?php
 
+use App\Http\Controllers\BuletinController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\DataKaret\DataController;
 use App\Http\Controllers\DataKaret\EksporDanImporController;
 use App\Http\Controllers\DataKaret\HomeController as DataKaretHomeController;
 use App\Http\Controllers\DataKaret\ProduksidanKonsumsiKaretAlamDuniaController;
 use App\Http\Controllers\DataKaret\VolumeExporBerdasarkanNegaraTujuanController;
-use App\Http\Controllers\GratifikasiOnlineCtrl;
-use App\Http\Controllers\ElearningController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\SendEmailController;
-use App\Http\Controllers\MriController;
-use App\Http\Controllers\KEBController;
 use App\Http\Controllers\Surat\SuratKeluarController;
 use App\Http\Controllers\Surat\SuratMasukController;
 use Illuminate\Support\Facades\Artisan;
@@ -171,7 +166,12 @@ Route::put('/ekspor-berdasarkan-pelabuhan-ekspor/{id}', [EksporDanImporControlle
 Route::get('/ekspor-berdasarkan-negara-tujuan', [EksporDanImporController::class, 'eksporBerdasarkanNegaraTujuan'])->name('eksporBerdasarkanNegaraTujuan')->middleware('auth');
 Route::post('/ekspor-berdasarkan-negara-tujuan', [EksporDanImporController::class, 'eksporBerdasarkanNegaraTujuanPost'])->name('eksporBerdasarkanNegaraTujuanPost')->middleware('auth');
 Route::get('/fileExcel/{id}/ekspor-berdasarkan-negara-tujuan/lihat', [EksporDanImporController::class, 'lihatEksporBerdasarkanNegaraTujuan'])->name('eksporBerdasarkanNegaraTujuan.lihat')->middleware('auth');
-Route::put('/ekspor-berdasarkan-negara-tujuan/{id}', [EksporDanImporController::class, 'eksporBerdasarkanNegaraTujuanUpdate'])->name('eksporBerdasarkanNegaraTujuan.update')->middleware('auth');
-
 
 // ekspor-dan-impor-berdasarkan-kode-hs
+
+// Buletin
+Route::get('/buletin1', [BuletinController::class, 'index'])->name('buletin1')->middleware('auth');
+Route::get('/form/buletin', [BuletinController::class, 'formBuletin'])->name('formBuletin')->middleware('auth');
+Route::post('/form/buletin/submit', [BuletinController::class, 'formBuletinPost'])->name('formBuletinPost')->middleware('auth');
+Route::get('/buletin/edit/{id}', [BuletinController::class, 'formBuletinEdit'])->name('formBuletin')->middleware('auth');
+Route::post('/form/buletin/edit', [BuletinController::class, 'formBuletinUpdate'])->name('formBuletinUpdate')->middleware('auth');

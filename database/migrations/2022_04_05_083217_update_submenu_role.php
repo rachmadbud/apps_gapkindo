@@ -15,7 +15,7 @@ class UpdateSubmenuRole extends Migration
     {
         DB::table('tbl_master_role')
             ->where('nama', 'Superuser')
-            ->update(['id_submenu' => '1,2,3,4,5,6,7,8,9,10']);
+            ->update(['id_submenu' => '1,2,3,4,5,6,7,8,9,10,11']);
     }
 
     /**
@@ -27,6 +27,6 @@ class UpdateSubmenuRole extends Migration
     {
         DB::table('tbl_master_role')
             ->where('nama', 'Superuser')
-            ->update(['id_submenu' => '1,2,3,4,5,6,7,8,9,10']);
+            ->update(['id_submenu' => '1,2,3,4,5,6,7,8,9,10,11']);
     }
 }
