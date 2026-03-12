@@ -37,7 +37,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->tanggal }}</td>
                                             <td>{{ $item->judul }}</td>
-                                            <td><a href="{{ asset('publikasi/lampiran' . $item->lampiran) }}"
+                                            <td><a href="{{ asset('publikasi/lampiran/' . $item->lampiran) }}"
                                                     target="_blank" class="mailbox-attachment-name text-primary"><i
                                                         class="fas fa-paperclip"></i><u> Lampiran</u></a></td>
                                             <td>{{ $item->uploaded_by }}</td>
