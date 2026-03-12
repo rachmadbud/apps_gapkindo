@@ -19,6 +19,8 @@ class AddUsersData extends Migration
         });
         DB::table('users')->insert(['name' => 'administrator', 'email' => 'admin@mail.com', 'password' => '$2y$10$TduAo1xyJ33aAD.JKuBGf.F4k4nwuy9oMc8Oy9Fa5cCkH53c2w20W', 'id_unit_kerja' => '1', 'id_role' => '1', 'expired_password' => '9999-12-30', 'tanggal_lahir' => '1998-08-30', 'id_level_jabatan' => '6',]);
         //password P@ssword321
+
+
     }
 
     /**
