@@ -16,13 +16,10 @@
 
     <body class="hold-transition login-page">
         <div class="login-box">
-            <!-- <div class="login-logo">
-                                                                                                                                                                                                                                                                                                                                                                    <b>{{ config('app.name') }}</b>
-                                                                                                                                                                                                                                                                                                                                                                </div> -->
 
             <div class="card card-outline card-dark">
                 <div class="card-header text-center">
-                    <img src="{{ asset('') }}assets/images/logoIconBwwy.gif" width="43px" alt="">
+                    <img src="{{ asset('') }}logo-gapkindo.gif" width="55px" alt="">
                     <h2>{{ config('app.name') }}</h2>
                 </div>
 
