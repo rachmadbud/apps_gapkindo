@@ -24,4 +24,10 @@ class SuratKeluar extends Model
         $row = DB::table('surat_keluar')->count();
         return $row;
     }
+
+    public function findSuratKeluar($id)
+    {
+        $surat = DB::table('surat_keluar')->where('id', $id)->first();
+        return $surat;
+    }
 }

@@ -11,9 +11,10 @@
                 <h3 class="card-title">Form Surat Keluar</h3>
             </div>
 
-            @if (isset($stmtGetUnitKerja))
+            @if (isset($suratKeluar))
                 <form id="quickForm" action="{{ app(CustomClass::class)->rootApp() }}/form/suratKeluar/edit" method="post"
                     enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="{{ $suratKeluar->id }}">
                 @else
                     <form id="quickForm" action="{{ app(CustomClass::class)->rootApp() }}/form/suratKeluar/submit"
                         method="post" enctype="multipart/form-data">
@@ -25,8 +26,7 @@
                     <label class="col-sm-2 col-form-label">Tanggal</label>
                     <div class="col-sm-4">
                         <input type="date" class="form-control @if ($errors->has('tanggal')) is-invalid @endif "
-                            name="tanggal"
-                            value="{{ isset($dataGetUnitKerja) ? $dataGetUnitKerja->tanggal : '' }} {{ old('tanggal') }}"
+                            name="tanggal" value="{{ old('tanggal', isset($suratKeluar) ? $suratKeluar->tanggal : '') }}"
                             required>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                     <div class="col-sm-10">
                         <input type="text" class="form-control @if ($errors->has('nomorSurat')) is-invalid @endif"
                             name="nomorSurat"
-                            value="{{ isset($dataGetUnitKerja) ? $dataGetUnitKerja->nomor_surat : '' }} {{ old('nomorSurat') }}"
+                            value="{{ isset($suratKeluar) ? $suratKeluar->nomor_surat : '' }} {{ old('nomorSurat') }}"
                             required>
                     </div>
                 </div>
@@ -44,8 +44,7 @@
                     <div class="col-sm-10">
                         <input type="text" class="form-control @if ($errors->has('perihal')) is-invalid @endif"
                             name="perihal"
-                            value="{{ isset($dataGetUnitKerja) ? $dataGetUnitKerja->perihal : '' }} {{ old('perihal') }}"
-                            required>
+                            value="{{ isset($suratKeluar) ? $suratKeluar->perihal : '' }} {{ old('perihal') }}" required>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -53,7 +52,7 @@
                     <div class="col-sm-10">
                         <input type="text" class="form-control @if ($errors->has('ditujukan')) is-invalid @endif"
                             name="ditujukan"
-                            value="{{ isset($dataGetUnitKerja) ? $dataGetUnitKerja->ditujukan : '' }} {{ old('ditujukan') }}"
+                            value="{{ isset($suratKeluar) ? $suratKeluar->ditujukan : '' }} {{ old('ditujukan') }}"
                             required>
                     </div>
                 </div>
@@ -61,7 +60,7 @@
                     <label class="col-sm-2 col-form-label">Lampiran</label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control @if ($errors->has('lampiran')) is-invalid @endif"
-                            name="lampiran" value="{{ isset($dataGetUnitKerja) ? $dataGetUnitKerja->ditujukan : '' }}">
+                            name="lampiran" value="{{ isset($suratKeluar) ? $suratKeluar->lampiran : '' }}">
                         <div class="invalid-feedback">
                             @error('lampiran')
                                 {{ $message }}

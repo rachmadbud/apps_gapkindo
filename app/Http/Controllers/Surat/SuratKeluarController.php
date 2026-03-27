@@ -67,4 +67,74 @@ class SuratKeluarController extends Controller
         toast(app(CustomClass::class)->notifSuksesTambah(), 'success');
         return redirect()->action([SuratKeluarController::class, 'index']);
     }
+
+    public function formSuratKeluarEdit($id)
+    {
+        $id = app(CustomClass::class)->dekrip($id);
+        $menuModel = new SidebarModel();
+        $sidebarMenu = $menuModel->getMenu();
+
+        $suratKeluar = new SuratKeluar();
+
+        $suratKeluar = $suratKeluar->findSuratKeluar($id);
+
+        return view('surat.suratKeluar.formSuratKeluar')
+            ->with($sidebarMenu)
+            ->with('suratKeluar', $suratKeluar);
+    }
+
+    public function formSuratKeluarUpdate(Request $request)
+    {
+        $request->validate([
+            'id'          => 'required',
+            'tanggal'     => 'required',
+            'nomorSurat'  => 'required',
+            'perihal'     => 'required',
+            'ditujukan'   => 'required',
+            'file_surat'  => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+        ]);
+
+        // ambil data lama
+        $surat = DB::table('surat_keluar')->where('id', $request->id)->first();
+
+        if (!$surat) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan');
+        }
+
+        $data = [
+            'tanggal'     => $request->tanggal,
+            'nomor_surat' => $request->nomorSurat,
+            'perihal'     => $request->perihal,
+            'ditujukan'   => $request->ditujukan,
+            'updated_at'  => now(),
+        ];
+
+        // kalau upload file baru
+        if ($request->hasFile('lampiran')) {
+
+            // hapus file lama
+            if (!empty($surat->file)) {
+                $file_lama = public_path('suratKeluar/lampiran/' . $surat->file);
+
+                if (file_exists($file_lama)) {
+                    unlink($file_lama);
+                }
+            }
+
+            // upload file baru
+            $file = $request->file('lampiran');
+            $nama_file = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('suratKeluar/lampiran'), $nama_file);
+
+            $data['lampiran'] = $nama_file;
+        }
+
+        DB::table('surat_keluar')
+            ->where('id', $request->id)
+            ->update($data);
+
+        toast(app(CustomClass::class)->notifSuksesEdit(), 'success');
+
+        return redirect()->action([SuratKeluarController::class, 'index']);
+    }
 }

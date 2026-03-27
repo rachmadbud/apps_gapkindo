@@ -108,18 +108,25 @@ Route::get('/manajemenUnker/hapus/{id}', [HomeController::class, 'manajemenUnker
 
 /*
 |--------------------------------------------------------------------------
-| Routes Surat
+| Routes Masuk
 |--------------------------------------------------------------------------
 */
 Route::get('/suratMasukx', [SuratMasukController::class, 'index'])->name('suratMasuk')->middleware('auth');
 Route::get('/form/suratMasuk', [SuratMasukController::class, 'formSuratMasuk'])->name('formSuratMasuk')->middleware('auth');
 Route::post('/form/suratMasuk/submit', [SuratMasukController::class, 'formSuratMasukSubmit'])->name('formSuratMasukSubmit')->middleware('auth');
 
+/*
+|--------------------------------------------------------------------------
+| Routes Surat Keluar
+|--------------------------------------------------------------------------
+*/
 Route::get('/suratKeluarx', [SuratKeluarController::class, 'index'])->name('suratKeluar')->middleware('auth');
-Route::post('/form/suratKeluar/submit', [SuratKeluarController::class, 'formSuratKeluarSubmit'])->name('formSuratKeluarSubmit')->middleware('auth');
-
 Route::get('/form/suratKeluar', [SuratKeluarController::class, 'formSuratKeluar'])->name('formSuratKeluar')->middleware('auth');
 Route::post('/form/suratKeluar/submit', [SuratKeluarController::class, 'formSuratKeluarSubmit'])->name('formSuratKeluarSubmit')->middleware('auth');
+
+// Edit
+Route::get('/suratKeluar/edit/{id}', [SuratKeluarController::class, 'formSuratKeluarEdit'])->name('formSuratKeluarEdit')->middleware('auth');
+Route::post('/form/suratKeluar/edit', [SuratKeluarController::class, 'formSuratKeluarUpdate'])->name('formSuratKeluarUpdate')->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------

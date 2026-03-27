@@ -47,8 +47,9 @@
                                                     target="_blank" class="mailbox-attachment-name text-primary"><i
                                                         class="fas fa-paperclip"></i><u> Lampiran</u></a></td>
                                             <td>{{ $item->created_by }}</td>
-                                            <td align="center"><a href="/suratMasuk/edit/" class="btn btn-warning"><i
-                                                        class='fa fa-pen'></i></a></td>
+                                            <td align="center"><a
+                                                    href="{{ app(CustomClass::class)->rootApp() }}/suratKeluar/edit/{{ app(CustomClass::class)->enkrip($item->id) }}"
+                                                    class="btn btn-warning"><i class='fa fa-pen'></i></a></td>
                                             </td>
                                         </tr>
                                     @endforeach
