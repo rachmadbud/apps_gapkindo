@@ -24,4 +24,10 @@ class SuratMasuk extends Model
         $row = DB::table('surat_masuks')->count();
         return $row;
     }
+
+    public function findSuratMasuk($id)
+    {
+        $surat = DB::table('surat_masuks')->where('id', $id)->first();
+        return $surat;
+    }
 }
