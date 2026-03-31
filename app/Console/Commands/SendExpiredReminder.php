@@ -30,67 +30,67 @@ class SendExpiredReminder extends Command
      */
     public function handle()
     {
-        Mail::raw('TEST CRON EMAIL', function ($msg) {
-            $msg->to('rachmadrachmadbud@gmail.com')
-                ->subject('TEST CRON');
-        });
-    //     Log::info('CRON PRODUCTION JALAN: ' . now());
-    //     $this->info('=== COMMAND JALAN ===');
-    //     $this->info('Waktu: ' . now());
+        Log::info('CRON PRODUCTION JALAN: ' . now());
+        $this->info('=== COMMAND JALAN ===');
+        $this->info('Waktu: ' . now());
 
-    //     $targetStart = now()->addMonths(3)->startOfDay();
-    //     $targetEnd = now()->addMonths(3)->endOfDay();
+        $targetStart = now()->addMonths(3)->startOfDay();
+        $targetEnd = now()->addMonths(3)->endOfDay();
 
-    //     $this->info("Range: $targetStart s/d $targetEnd");
+        $this->info("Range: $targetStart s/d $targetEnd");
 
-    //     $companies = \App\Models\Company::whereNull('reminder_sent_at')
-    //         ->whereBetween('expired_at', [$targetStart, $targetEnd])
-    //         ->get();
+        $companies = \App\Models\Company::whereNull('reminder_sent_at')
+            ->whereBetween('expired_at', [$targetStart, $targetEnd])
+            ->get();
 
-    //     $this->info('Jumlah data: ' . $companies->count());
+        $this->info('Jumlah data: ' . $companies->count());
 
-    //     if ($companies->count() == 0) {
-    //         $this->warn('Tidak ada data yang perlu dikirim');
-    //         return;
-    //     }
+        if ($companies->count() == 0) {
+            $this->warn('Tidak ada data yang perlu dikirim');
+            return;
+        }
 
-    //     foreach ($companies as $company) {
+        foreach ($companies as $company) {
 
-    //         $this->info('Proses ID: ' . $company->id);
-    //         $this->info('Email: ' . $company->email);
+            $this->info('Proses ID: ' . $company->id);
+            $this->info('Email: ' . $company->email);
 
-    //         try {
-    //             // 🔥 Ambil data yang aman saja (hindari MAC error)
-    //             $data = [
-    //                 'name' => $company->name,
-    //                 'email' => $company->email,
-    //                 'expired_at' => $company->expired_at,
-    //             ];
+            try {
+                // 🔥 Ambil data yang aman saja (hindari MAC error)
+                $data = [
+                    'name' => $company->name,
+                    'email' => $company->email,
+                    'expired_at' => $company->expired_at,
+                ];
 
-    //             $this->info('STEP: sebelum kirim email');
+                $this->info('STEP: sebelum kirim email');
 
-    //             Mail::to($company->email)
-    //                 ->send(new ExpiredReminderMail($data));
+                // Mail::to($company->email)
+                //     ->send(new ExpiredReminderMail($data));
+                Mail::raw('TEST CRON EMAIL', function ($msg) use ($company) {
+                    $msg->to($company->email)
+                        ->subject('TEST CRON');
+                });
 
-    //             $this->info('STEP: setelah kirim email');
+                $this->info('STEP: setelah kirim email');
 
-    //             $company->update([
-    //                 'reminder_sent_at' => now(),
-    //                 'reminder_status' => 'success'
-    //             ]);
-    //         } catch (\Exception $e) {
+                $company->update([
+                    'reminder_sent_at' => now(),
+                    'reminder_status' => 'success'
+                ]);
+            } catch (\Exception $e) {
 
-    //             $this->error('ERROR: ' . $e->getMessage());
+                $this->error('ERROR: ' . $e->getMessage());
 
-    //             Log::error('ERROR REMINDER COMPANY ID ' . $company->id);
-    //             Log::error($e); // full stack trace
+                Log::error('ERROR REMINDER COMPANY ID ' . $company->id);
+                Log::error($e); // full stack trace
 
-    //             $company->update([
-    //                 'reminder_status' => 'failed'
-    //             ]);
-    //         }
-    //     }
+                $company->update([
+                    'reminder_status' => 'failed'
+                ]);
+            }
+        }
 
-    //     $this->info('=== SELESAI ===');
-    // }
+        $this->info('=== SELESAI ===');
+    }
 }

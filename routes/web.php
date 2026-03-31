@@ -49,6 +49,11 @@ Route::get('/clear-all', function () {
   return 'Semua cache berhasil di-clear!';
 });
 
+Route::get('/test-command', function () {
+  Artisan::call('send:expired-reminder');
+  return 'Command dijalankan';
+});
+
 
 Route::get('login', [App\Http\Controllers\CustomAuthController::class, 'index'])->name('login')->middleware('guest');
 Route::post('custom-login', [App\Http\Controllers\CustomAuthController::class, 'customLogin'])->name('login.custom');
