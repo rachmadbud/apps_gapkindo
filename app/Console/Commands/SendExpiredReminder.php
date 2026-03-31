@@ -30,6 +30,7 @@ class SendExpiredReminder extends Command
      */
     public function handle()
     {
+        Log::info('CRON PRODUCTION JALAN: ' . now());
         $this->info('=== COMMAND JALAN ===');
         $this->info('Waktu: ' . now());
 
