@@ -30,12 +30,13 @@ class SendExpiredReminder extends Command
      */
     public function handle()
     {
-        $this->info('COMMAND JALAN');
-        $this->info('Jalan jam: ' . now());
+        $this->info('=== COMMAND JALAN ===');
+        $this->info('Waktu: ' . now());
+
         $targetStart = now()->addMonths(3)->startOfDay();
         $targetEnd = now()->addMonths(3)->endOfDay();
 
-        $this->info('Range: ' . $targetStart . ' s/d ' . $targetEnd);
+        $this->info("Range: $targetStart s/d $targetEnd");
 
         $companies = \App\Models\Company::whereNull('reminder_sent_at')
             ->whereBetween('expired_at', [$targetStart, $targetEnd])
@@ -43,13 +44,30 @@ class SendExpiredReminder extends Command
 
         $this->info('Jumlah data: ' . $companies->count());
 
+        if ($companies->count() == 0) {
+            $this->warn('Tidak ada data yang perlu dikirim');
+            return;
+        }
+
         foreach ($companies as $company) {
 
-            $this->info('Kirim ke: ' . $company->email);
+            $this->info('Proses ID: ' . $company->id);
+            $this->info('Email: ' . $company->email);
 
             try {
+                // 🔥 Ambil data yang aman saja (hindari MAC error)
+                $data = [
+                    'name' => $company->name,
+                    'email' => $company->email,
+                    'expired_at' => $company->expired_at,
+                ];
+
+                $this->info('STEP: sebelum kirim email');
+
                 Mail::to($company->email)
-                    ->send(new ExpiredReminderMail($company));
+                    ->send(new ExpiredReminderMail($data));
+
+                $this->info('STEP: setelah kirim email');
 
                 $company->update([
                     'reminder_sent_at' => now(),
@@ -57,12 +75,17 @@ class SendExpiredReminder extends Command
                 ]);
             } catch (\Exception $e) {
 
+                $this->error('ERROR: ' . $e->getMessage());
+
+                Log::error('ERROR REMINDER COMPANY ID ' . $company->id);
+                Log::error($e); // full stack trace
+
                 $company->update([
                     'reminder_status' => 'failed'
                 ]);
-
-                Log::error($e->getMessage());
             }
         }
+
+        $this->info('=== SELESAI ===');
     }
 }

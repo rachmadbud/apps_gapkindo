@@ -11,22 +11,26 @@ use Illuminate\Queue\SerializesModels;
 
 class ExpiredReminderMail extends Mailable
 {
-    public $company;
+    public $data;
 
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($company)
+    public function __construct($data)
     {
-        $this->company = $company;
+        $this->data = $data;
     }
 
     public function build()
     {
-        return $this->subject('Peringatan Masa Berlaku Surat')
-            ->view('emails.expired_reminder');
+        return $this->subject('Reminder Expired')
+            ->view('emails.expired_reminder')
+            ->with([
+                'name' => $this->data['name'],
+                'expired_at' => $this->data['expired_at'],
+            ]);
     }
 
     /**
