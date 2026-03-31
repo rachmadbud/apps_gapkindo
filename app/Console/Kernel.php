@@ -18,21 +18,14 @@ class Kernel extends ConsoleKernel
      * @return void
      */
 
+    protected $commands = [
+        \App\Console\Commands\SendExpiredReminder::class,
+    ];
 
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('new SendEmailJob')->dailyAt('09:00');
-        $schedule->command('new SendEmailJob')->everyMinute();
-
-        // $now = Carbon::now();
-        // $month = $now->format('F');
-        // $year = $now->format('yy');
-
-
-        // $fourthFridayMonthly = new Carbon('fourth friday of ' . $month . ' ' . $year);
-
-        // $schedule->job(new SendEmailJob)->dailyAt('09:00');
-        $schedule->job(new SendEmailJob)->everyMinute();
+        // $schedule->command('send:expired-reminder')->dailyAt('02:04');
+        $schedule->command('send:expired-reminder')->everyMinute();
     }
 
 
