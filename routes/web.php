@@ -38,6 +38,17 @@ Route::get('/migrate', function () {
   return 'Migration sudah dijalankan!';
 });
 
+Route::get('/clear-all', function () {
+  abort_unless(app()->environment('local'), 403);
+
+  Artisan::call('config:clear');
+  Artisan::call('cache:clear');
+  Artisan::call('route:clear');
+  Artisan::call('view:clear');
+
+  return 'Semua cache berhasil di-clear!';
+});
+
 
 Route::get('login', [App\Http\Controllers\CustomAuthController::class, 'index'])->name('login')->middleware('guest');
 Route::post('custom-login', [App\Http\Controllers\CustomAuthController::class, 'customLogin'])->name('login.custom');
