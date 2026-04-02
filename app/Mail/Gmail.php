@@ -32,6 +32,6 @@ class Gmail extends Mailable
     {
         return $this->subject('Mail from Laravel Job Scheduler')
             ->view('gmail')
-            ->from('kusdhian.herlambang@bankdki.co.id');
+            ->from('asdas@basdcsd');
     }
 }

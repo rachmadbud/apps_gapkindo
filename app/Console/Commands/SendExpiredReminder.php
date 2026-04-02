@@ -6,6 +6,7 @@ use App\Mail\ExpiredReminderMail;
 use App\Models\Company;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 
@@ -30,7 +31,8 @@ class SendExpiredReminder extends Command
      */
     public function handle()
     {
-        Log::info('CRON PRODUCTION JALAN: ' . now());
+        $this->info('Masuk handle');
+        Log::info('CRON JALAN: ' . now());
         $this->info('=== COMMAND JALAN ===');
         $this->info('Waktu: ' . now());
 
@@ -39,55 +41,100 @@ class SendExpiredReminder extends Command
 
         $this->info("Range: $targetStart s/d $targetEnd");
 
-        $companies = \App\Models\Company::whereNull('reminder_sent_at')
-            ->whereBetween('expired_at', [$targetStart, $targetEnd])
+        /*
+    |--------------------------------------------------------------------------
+    | 1. TPP (masatpp)
+    |--------------------------------------------------------------------------
+    */
+        $tpps = DB::table('masatpp')
+            ->whereNull('reminder_sent_at')
+            ->whereBetween('tgl_berakhir', [$targetStart, $targetEnd])
             ->get();
 
-        $this->info('Jumlah data: ' . $companies->count());
+        $this->info('Jumlah TPP: ' . $tpps->count());
 
-        if ($companies->count() == 0) {
-            $this->warn('Tidak ada data yang perlu dikirim');
-            return;
-        }
-
-        foreach ($companies as $company) {
-
-            $this->info('Proses ID: ' . $company->id);
-            $this->info('Email: ' . $company->email);
+        foreach ($tpps as $tpp) {
+            $this->info('Proses TPP ID: ' . $tpp->id);
 
             try {
-                // 🔥 Ambil data yang aman saja (hindari MAC error)
+
+                $email = 'rachmadrachmadbud@gmail.com';
                 $data = [
-                    'name' => $company->name,
-                    'email' => $company->email,
-                    'expired_at' => $company->expired_at,
+                    'name' => $tpp->name,
+                    'jenis' => 'TPP',
+                    'nomor' => $tpp->no_tpp,
+                    'expired_at' => $tpp->tgl_berakhir,
+                    'sender' => 'GAPKINDO PUSAT',
+                    'subject' => 'Reminder Expired TPP'
                 ];
 
-                $this->info('STEP: sebelum kirim email');
+                Mail::to($email)->send(new ExpiredReminderMail($data));
 
-                // Mail::to($company->email)
-                //     ->send(new ExpiredReminderMail($data));
-                Mail::raw('TEST CRON EMAIL', function ($msg) use ($company) {
-                    $msg->to($company->email)
-                        ->subject('TEST CRON');
-                });
-
-                $this->info('STEP: setelah kirim email');
-
-                $company->update([
-                    'reminder_sent_at' => now(),
-                    'reminder_status' => 'success'
-                ]);
+                DB::table('masatpp')
+                    ->where('id', $tpp->id)
+                    ->update([
+                        'reminder_sent_at' => now(),
+                        'reminder_status' => 'success'
+                    ]);
             } catch (\Exception $e) {
 
-                $this->error('ERROR: ' . $e->getMessage());
+                Log::error('ERROR TPP ID ' . $tpp->id);
+                Log::error($e);
 
-                Log::error('ERROR REMINDER COMPANY ID ' . $company->id);
-                Log::error($e); // full stack trace
+                DB::table('masatpp')
+                    ->where('id', $tpp->id)
+                    ->update([
+                        'reminder_status' => 'failed'
+                    ]);
+            }
+        }
 
-                $company->update([
-                    'reminder_status' => 'failed'
-                ]);
+        /*
+    |--------------------------------------------------------------------------
+    | 2. SPPT-SNI (masaspptsni)
+    |--------------------------------------------------------------------------
+    */
+        $sppts = DB::table('masaspptsni')
+            ->whereNull('reminder_sent_at')
+            ->whereBetween('tgl_akhir', [$targetStart, $targetEnd])
+            ->get();
+
+        $this->info('Jumlah SPPT-SNI: ' . $sppts->count());
+
+        foreach ($sppts as $sppt) {
+            $this->info('Proses SPPT ID: ' . $sppt->id);
+
+            try {
+
+                $data = [
+                    'name' => $sppt->name,
+                    'jenis' => 'SPPT-SNI',
+                    'nomor' => $sppt->no_spptsni,
+                    'expired_at' => $sppt->tgl_akhir,
+                    'sender' => 'GAPKINDO PUSAT',
+                    'subject' => 'Reminder Expired SPPT-SNI'
+                ];
+
+                $email = 'rachmadrachmadbud@gmail.com';
+
+                Mail::to($email)->send(new ExpiredReminderMail($data));
+
+                DB::table('masaspptsni')
+                    ->where('id', $sppt->id)
+                    ->update([
+                        'reminder_sent_at' => now(),
+                        'reminder_status' => 'success'
+                    ]);
+            } catch (\Exception $e) {
+
+                Log::error('ERROR SPPT ID ' . $sppt->id);
+                Log::error($e);
+
+                DB::table('masaspptsni')
+                    ->where('id', $sppt->id)
+                    ->update([
+                        'reminder_status' => 'failed'
+                    ]);
             }
         }
 
