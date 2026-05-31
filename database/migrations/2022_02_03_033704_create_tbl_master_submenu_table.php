@@ -35,6 +35,9 @@ class CreateTblMasterSubmenuTable extends Migration
         DB::table('tbl_master_submenu')->insert(['id' => '10', 'nama' => 'Surat Keluar', 'id_menu' => '4', 'link' => '/suratKeluarx', 'status_data' => '1', 'urutan' => '10']);
         DB::table('tbl_master_submenu')->insert(['id' => '11', 'nama' => 'Buletin', 'id_menu' => '6', 'link' => '/buletin1', 'status_data' => '1', 'urutan' => '11']);
         DB::table('tbl_master_submenu')->insert(['id' => '12', 'nama' => 'Publikasi', 'id_menu' => '6', 'link' => '/publikasi1', 'status_data' => '1', 'urutan' => '12']);
+
+        DB::table('tbl_master_submenu')->insert(['id' => '13', 'nama' => 'SPPT-SNI', 'id_menu' => '7', 'link' => '/sppt-sni', 'status_data' => '1', 'urutan' => '13']);
+        DB::table('tbl_master_submenu')->insert(['id' => '14', 'nama' => 'TPP', 'id_menu' => '7', 'link' => '/tpp', 'status_data' => '1', 'urutan' => '14']);
     }
 
     /**

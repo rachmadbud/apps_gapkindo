@@ -29,6 +29,8 @@ class CreateTblMasterMenuTable extends Migration
 
         DB::table('tbl_master_menu')->insert(['id' => '5', 'nama' => 'Data Karet Alam', 'link' => '/dataKaretAlam', 'status_data' => '0', 'urutan' => '5']);
         DB::table('tbl_master_menu')->insert(['id' => '6', 'nama' => 'E-Books', 'link' => '#', 'status_data' => '1', 'urutan' => '6']);
+
+        DB::table('tbl_master_menu')->insert(['id' => '7', 'nama' => 'SPPT-SNI & TPP', 'link' => '#', 'status_data' => '1', 'urutan' => '7']);
     }
 
     /**

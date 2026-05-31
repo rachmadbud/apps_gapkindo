@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('masaspptsni', function (Blueprint $table) {
             $table->id();
-            $table->string('cabang');
-            $table->string('name');
-            $table->string('no_spptsni');
-            $table->date('tgl_awal');
-            $table->date('tgl_akhir');
+            $table->string('cabang')->nullable();
+            $table->string('name')->nullable();
+            $table->string('no_spptsni')->nullable();
+            $table->date('tgl_awal')->nullable();
+            $table->date('tgl_akhir')->nullable();
             $table->timestamp('reminder_sent_at')->nullable();
             $table->string('reminder_status')->nullable();
             $table->timestamps();
@@ -53,6 +53,59 @@ return new class extends Migration
         DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Utara',  'name' => 'PT Virginia Rubber Indonesia Company (VIRCO)', 'no_spptsni' => 'JPA 009 068', 'tgl_awal' => '2012-04-14', 'tgl_akhir' => '2028-03-13']);
         DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Utara',  'name' => 'PT Wipolimex Raya', 'no_spptsni' => 'JPA 009 145', 'tgl_awal' => '2026-03-04', 'tgl_akhir' => '2030-03-03']);
         DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Utara',  'name' => 'PT ABC', 'no_spptsni' => 'JPA 009 145', 'tgl_awal' => '2026-03-04', 'tgl_akhir' => '2026-07-02']);
+
+        // Jawaa
+        DB::table('masaspptsni')->insert(['cabang' => 'Jawa', 'name' => 'PT Bitung Gunasejahtera', 'no_spptsni' => 'JPA 009 026', 'tgl_awal' => '2023-10-26', 'tgl_akhir' => '2027-10-22']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Jawa', 'name' => 'CV Jadi Jaya Makmur', 'no_spptsni' => 'JPA 009 062', 'tgl_awal' => '2011-06-05', 'tgl_akhir' => '2027-04-01']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Jawa', 'name' => 'PT Indo Java Rubber Planting', 'no_spptsni' => 'JPA 009 081', 'tgl_awal' => '2026-01-26', 'tgl_akhir' => '2030-01-25']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Jawa', 'name' => 'PT Kaliduren Estates', 'no_spptsni' => 'JPA 009 082', 'tgl_awal' => '2025-11-14', 'tgl_akhir' => '2029-11-13']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Jawa', 'name' => 'PT Nusa Alam Rubber', 'no_spptsni' => '403/S/SA/B/XI.11/2016', 'tgl_awal' => '2024-07-15', 'tgl_akhir' => '2028-07-14']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Jawa', 'name' => 'PT Perkebunan Nusantara I Regional 2', 'no_spptsni' => '04520DN-643-LSPro PPMB', 'tgl_awal' => '2020-09-24', 'tgl_akhir' => '2024-09-23']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Jawa', 'name' => 'PT Raberindo Pratama', 'no_spptsni' => 'JPA 009 013', 'tgl_awal' => '2006-08-18', 'tgl_akhir' => '2026-08-15']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Jawa', 'name' => 'CV Semesta Jaya Lestarie', 'no_spptsni' => 'JPA 009 074', 'tgl_awal' => '2012-11-10', 'tgl_akhir' => '2028-11-21']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Jawa', 'name' => 'CV Sinar Jaya', 'no_spptsni' => '2122DN-35A.1-034-LSPr-001-IDN', 'tgl_awal' => '2022-03-17', 'tgl_akhir' => '2026-03-16']);
+
+        // KALSEL
+        DB::table('masaspptsni')->insert(['cabang' => 'KALSEL', 'name' => 'PT Bumi Jaya', 'no_spptsni' => 'JPA 009 101', 'tgl_awal' => '2022-11-14', 'tgl_akhir' => '2026-11-13']);
+        DB::table('masaspptsni')->insert(['cabang' => 'KALSEL', 'name' => 'PT Darma Kalimantan Jaya', 'no_spptsni' => 'JPA 009 040', 'tgl_awal' => '2024-04-24', 'tgl_akhir' => '2028-04-23']);
+        DB::table('masaspptsni')->insert(['cabang' => 'KALSEL', 'name' => 'PT Insan Bonafide', 'no_spptsni' => 'JPA 009 039', 'tgl_awal' => '2024-09-09', 'tgl_akhir' => '2028-09-08']);
+        DB::table('masaspptsni')->insert(['cabang' => 'KALSEL', 'name' => 'PT Jhonlin Agro Mandiri', 'no_spptsni' => '4522DN-35A.1-067-LSPr-001-IDN', 'tgl_awal' => '2022-05-13', 'tgl_akhir' => '2026-05-12']);
+        DB::table('masaspptsni')->insert(['cabang' => 'KALSEL', 'name' => 'PT Karias Tabing Kencana', 'no_spptsni' => 'JPA 009 045', 'tgl_awal' => '2024-09-05', 'tgl_akhir' => '2028-09-04']);
+        DB::table('masaspptsni')->insert(['cabang' => 'KALSEL', 'name' => 'PT Kintap Jaya Wattindo', 'no_spptsni' => 'JPA 009 085', 'tgl_awal' => '2025-11-11', 'tgl_akhir' => '2029-11-10']);
+        DB::table('masaspptsni')->insert(['cabang' => 'KALSEL', 'name' => 'PT Nusantara Batulicin', 'no_spptsni' => 'JPA 009 089', 'tgl_awal' => '2022-07-08', 'tgl_akhir' => '2026-07-07']);
+        DB::table('masaspptsni')->insert(['cabang' => 'KALSEL', 'name' => 'PT Wilson Lautan Karet', 'no_spptsni' => 'JPA 009 218', 'tgl_awal' => '2024-07-29', 'tgl_akhir' => '2028-07-28']);
+        DB::table('masaspptsni')->insert(['cabang' => 'KALSEL', 'name' => 'PT Borneo Makmur Lestari', 'no_spptsni' => 'JPA 009 043', 'tgl_awal' => '2025-06-16', 'tgl_akhir' => '2029-06-15']);
+        DB::table('masaspptsni')->insert(['cabang' => 'KALSEL', 'name' => 'PT Bumi Asri Pasamman', 'no_spptsni' => 'JPA 009 041', 'tgl_awal' => '2024-08-12', 'tgl_akhir' => '2029-08-11']);
+        DB::table('masaspptsni')->insert(['cabang' => 'KALSEL', 'name' => 'PT Kahayan Berseri', 'no_spptsni' => 'JPA 009 199', 'tgl_awal' => '2026-02-20', 'tgl_akhir' => '2030-02-19']);
+        DB::table('masaspptsni')->insert(['cabang' => 'KALSEL', 'name' => 'PT Multi Kusuma Cemerlang', 'no_spptsni' => 'JPA 009 138', 'tgl_awal' => '2025-10-24', 'tgl_akhir' => '2029-10-23']);
+
+        // Seumatera Selatan
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Aneka Bumi Pratama', 'no_spptsni' => '008/BSPJI-Palembang/MS.1/X/2026', 'tgl_awal' => '2024-09-01', 'tgl_akhir' => '2028-08-01']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Asa Rubber', 'no_spptsni' => '', 'tgl_awal' => null, 'tgl_akhir' => null]);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT.Bintang Agung Persada', 'no_spptsni' => '824 200016', 'tgl_awal' => '2016-09-03', 'tgl_akhir' => '2031-08-03']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Bintang Gasing Persada', 'no_spptsni' => '029/BSPJI-Palembang/MS.1/V/2024', 'tgl_awal' => '2024-02-15', 'tgl_akhir' => '2028-02-14']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Bumi Beliti Abadi', 'no_spptsni' => 'JPA 009 190', 'tgl_awal' => '2025-10-04', 'tgl_akhir' => '2029-09-04']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Fajar Berseri', 'no_spptsni' => '', 'tgl_awal' => null, 'tgl_akhir' => null]);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT Gadjah Ruku', 'no_spptsni' => '054/BSPJI-Palembang/MS.1/X/2023', 'tgl_awal' => '2024-02-01', 'tgl_akhir' => '2028-01-01']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Hevea MK  I', 'no_spptsni' => '', 'tgl_awal' => null, 'tgl_akhir' => null]);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Hevea MK II', 'no_spptsni' => '014/BSPJI-Palembang/MS.1/V/2025', 'tgl_awal' => '2025-05-19', 'tgl_akhir' => '2029-05-18']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Hok Tong ', 'no_spptsni' => '', 'tgl_awal' => null, 'tgl_akhir' => null]);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Hok Tong II', 'no_spptsni' => '039/BSPJI Palembang/MS.1/VII/2023', 'tgl_awal' => '2023-03-07', 'tgl_akhir' => '2027-10-27']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Kirana Musi Persada', 'no_spptsni' => '824 260014', 'tgl_awal' => '2026-10-03', 'tgl_akhir' => '2031-09-03']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Kirana Permata', 'no_spptsni' => '824 260013', 'tgl_awal' => '2026-10-03', 'tgl_akhir' => '2031-09-03']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Kirana Windu', 'no_spptsni' => '824 260025', 'tgl_awal' => '2026-05-03', 'tgl_akhir' => '2031-03-04']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Karini Utama', 'no_spptsni' => '824260018', 'tgl_awal' => '2026-03-11', 'tgl_akhir' => '2031-10-03']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT.  Lingga Djaya', 'no_spptsni' => '026/BSPJI-Palembang/MS.1/V/2024', 'tgl_awal' => '2024-05-13', 'tgl_akhir' => '2028-05-12']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. PP London Sumatra Indonesia, Tbk', 'no_spptsni' => '', 'tgl_awal' => null, 'tgl_akhir' => null]);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Mardec Musi Lestari', 'no_spptsni' => '', 'tgl_awal' => null, 'tgl_akhir' => null]);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Pancasamudera Simpati', 'no_spptsni' => '005/BSPJI-Palembang/MS.1/I/2024', 'tgl_awal' => '2024-05-02', 'tgl_akhir' => '2028-04-02']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Pinago Utama, Tbk', 'no_spptsni' => 'JPA 009 129', 'tgl_awal' => '2025-01-15', 'tgl_akhir' => '2029-01-04']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Prasida Aneka Niaga', 'no_spptsni' => '', 'tgl_awal' => null, 'tgl_akhir' => null]);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Prasida Aneka Niaga Unit II', 'no_spptsni' => '', 'tgl_awal' => null, 'tgl_akhir' => null]);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT Remco Rubber Indonesia', 'no_spptsni' => '057/BSPJI-Palembang/MS.1/X/2023', 'tgl_awal' => '2023-11-11', 'tgl_akhir' => '2027-11-10']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Sri Trang Lingga Indonesia', 'no_spptsni' => '023/BSPJI-Palembang/MS.1/IV/2024', 'tgl_awal' => '2024-05-10', 'tgl_akhir' => '2028-05-09']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Sunan Rubber', 'no_spptsni' => 'JPA 009 161', 'tgl_awal' => '2022-10-13', 'tgl_akhir' => '2026-12-10']);
+        DB::table('masaspptsni')->insert(['cabang' => 'Sumatera Selatan', 'name' => 'PT. Warna Agung Selatan', 'no_spptsni' => '053/BSPJI-Palembang/MS.1/X/2024', 'tgl_awal' => '2025-06-16', 'tgl_akhir' => '2029-06-05']);
     }
 
     /**

@@ -27,32 +27,29 @@ use App\Http\Controllers\PublikasiController;
 |
 */
 
-// Route::get('/migrate-fresh', function () {
-//   Artisan::call('migrate:fresh --seed');
-//   return 'Migrate fresh berhasil dijalankan!';
+
+// Route::get('/migrate', function () {
+//   abort_unless(app()->environment('local'), 403);
+
+//   Artisan::call('migrate', ['--force' => true]);
+//   return 'Migration sudah dijalankan!';
 // });
-Route::get('/migrate', function () {
-  abort_unless(app()->environment('local'), 403);
 
-  Artisan::call('migrate', ['--force' => true]);
-  return 'Migration sudah dijalankan!';
-});
+// Route::get('/clear-all', function () {
+//   abort_unless(app()->environment('local'), 403);
 
-Route::get('/clear-all', function () {
-  abort_unless(app()->environment('local'), 403);
+//   Artisan::call('config:clear');
+//   Artisan::call('cache:clear');
+//   Artisan::call('route:clear');
+//   Artisan::call('view:clear');
 
-  Artisan::call('config:clear');
-  Artisan::call('cache:clear');
-  Artisan::call('route:clear');
-  Artisan::call('view:clear');
+//   return 'Semua cache berhasil di-clear!';
+// });
 
-  return 'Semua cache berhasil di-clear!';
-});
-
-Route::get('/test-command', function () {
-  Artisan::call('send:expired-reminder');
-  return 'Command dijalankan';
-});
+// Route::get('/test-command', function () {
+//   Artisan::call('send:expired-reminder');
+//   return 'Command dijalankan';
+// });
 
 
 Route::get('login', [App\Http\Controllers\CustomAuthController::class, 'index'])->name('login')->middleware('guest');

@@ -43,20 +43,37 @@ class SidebarModel extends Model
             ->orderBy('urutan', 'asc')
             ->get();
 
-        // $stmtMenuId = DB::select('select id from tbl_master_menu where link = ?', [$RouteName]);
-        // $stmtSubMenuId = DB::select('select id, id_menu from tbl_master_submenu where link = ?', [$RouteName]);
-
         $stmtMenuId = DB::select("select id from tbl_master_menu where link like '%" . $RouteName . "' ");
         $stmtSubMenuId = DB::select("select id, id_menu from tbl_master_submenu where link like '%" . $RouteName . "' ");
 
         foreach ($stmtMenuId as $dataMenuId) {
             $regIdMenu = $dataMenuId->id;
-            $stmtRoleMenu = DB::select("select count(id) as jum_menu from tbl_master_role where id = " . $idRole . " and id_menu REGEXP '[[:<:]]" . $regIdMenu . "[[:>:]]' ");
+            // $stmtRoleMenu = DB::select("select count(id) as jum_menu from tbl_master_role where id = " . $idRole . " and id_menu REGEXP '[[:<:]]" . $regIdMenu . "[[:>:]]' ");
+            $stmtRoleMenu = DB::select(
+                "SELECT COUNT(id) AS jum_menu
+     FROM tbl_master_role
+     WHERE id = ?
+       AND ? = ANY (string_to_array(id_menu, ',')::int[])",
+                [
+                    $idRole,
+                    $regIdMenu
+                ]
+            );
         }
 
         foreach ($stmtSubMenuId as $dataSubMenuId) {
             $regIdSubMenu = $dataSubMenuId->id;
-            $stmtRoleSubMenu = DB::select("select count(id) as jum_submenu from tbl_master_role where id = " . $idRole . " and id_submenu REGEXP '[[:<:]]" . $regIdSubMenu . "[[:>:]]' ");
+            // $stmtRoleSubMenu = DB::select("select count(id) as jum_submenu from tbl_master_role where id = " . $idRole . " and id_submenu REGEXP '[[:<:]]" . $regIdSubMenu . "[[:>:]]' ");
+            $stmtRoleSubMenu = DB::select(
+                "SELECT COUNT(id) AS jum_submenu
+     FROM tbl_master_role
+     WHERE id = ?
+       AND ? = ANY (string_to_array(id_submenu, ',')::int[])",
+                [
+                    $idRole,
+                    $regIdSubMenu
+                ]
+            );
         }
 
         (isset($stmtRoleMenu[0]->jum_menu) && $stmtRoleMenu[0]->jum_menu > 0) ? $aksesMenu = 1 : $aksesMenu = 0;
