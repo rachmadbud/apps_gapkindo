@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Surat;
 
 use App\Http\Controllers\Controller;
+use App\Models\Complaint;
 use App\Models\CustomClass;
 use App\Models\SidebarModel;
 use App\Models\SuratMasuk;
@@ -143,5 +144,17 @@ class SuratMasukController extends Controller
         toast(app(CustomClass::class)->notifSuksesEdit(), 'success');
 
         return redirect()->action([SuratMasukController::class, 'index']);
+    }
+
+    public function formTantangan()
+    {
+        $menuModel = new SidebarModel();
+        $sidebarMenu = $menuModel->getMenu();
+
+        $form = new Complaint();
+
+        return view('surat.formTantangan')
+            ->with($sidebarMenu)
+            ->with('form', $form);
     }
 }

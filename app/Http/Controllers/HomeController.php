@@ -132,7 +132,12 @@ class HomeController extends Controller
 
 
         // cek menu ini dipakai di role atau tidak
-        $cekRoleMenu = DB::select("select count(id) as jum_menu from tbl_master_role where id_menu REGEXP '[[:<:]]" . $id . "[[:>:]]' ");
+        // $cekRoleMenu = DB::select("select count(id) as jum_menu from tbl_master_role where id_menu REGEXP '[[:<:]]" . $id . "[[:>:]]' ");
+        $cekRoleMenu = DB::select("
+    SELECT COUNT(id) AS jum_menu
+    FROM tbl_master_role
+    WHERE ? = ANY (string_to_array(id_menu, ',')::int[])
+", [$id]);
 
         return view('manajemen.manajemenMenuForm')
             ->with($sidebarMenu)

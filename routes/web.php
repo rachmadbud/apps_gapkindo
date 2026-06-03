@@ -14,6 +14,7 @@ use App\Http\Controllers\Surat\SuratMasukController;
 use Illuminate\Support\Facades\Artisan;
 
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\FromController;
 use App\Http\Controllers\PublikasiController;
 
 /*
@@ -206,3 +207,6 @@ Route::post('/form/buletin/edit', [BuletinController::class, 'formBuletinUpdate'
 Route::get('/publikasi1', [PublikasiController::class, 'index'])->name('publikasi1')->middleware('auth');
 Route::get('/form/publikasi', [PublikasiController::class, 'formPublikasi'])->name('formPublikasi')->middleware('auth');
 Route::post('/form/publikasi/submit', [PublikasiController::class, 'formPublikasiPost'])->name('formPublikasiPost')->middleware('auth');
+
+// Form Tantangans
+Route::get('/form/tantangan', [FromController::class, 'formTantangan'])->name('formTantangan')->middleware('auth');

@@ -43,6 +43,9 @@ class SidebarModel extends Model
             ->orderBy('urutan', 'asc')
             ->get();
 
+        // $stmtMenuId = DB::select('select id from tbl_master_menu where link = ?', [$RouteName]);
+        // $stmtSubMenuId = DB::select('select id, id_menu from tbl_master_submenu where link = ?', [$RouteName]);
+
         $stmtMenuId = DB::select("select id from tbl_master_menu where link like '%" . $RouteName . "' ");
         $stmtSubMenuId = DB::select("select id, id_menu from tbl_master_submenu where link like '%" . $RouteName . "' ");
 
@@ -63,7 +66,6 @@ class SidebarModel extends Model
 
         foreach ($stmtSubMenuId as $dataSubMenuId) {
             $regIdSubMenu = $dataSubMenuId->id;
-            // $stmtRoleSubMenu = DB::select("select count(id) as jum_submenu from tbl_master_role where id = " . $idRole . " and id_submenu REGEXP '[[:<:]]" . $regIdSubMenu . "[[:>:]]' ");
             $stmtRoleSubMenu = DB::select(
                 "SELECT COUNT(id) AS jum_submenu
      FROM tbl_master_role
@@ -79,6 +81,15 @@ class SidebarModel extends Model
         (isset($stmtRoleMenu[0]->jum_menu) && $stmtRoleMenu[0]->jum_menu > 0) ? $aksesMenu = 1 : $aksesMenu = 0;
         (isset($stmtRoleSubMenu[0]->jum_submenu) && $stmtRoleSubMenu[0]->jum_submenu > 0) ? $aksesSubMenu = 1 : $aksesSubMenu = 0;
 
+
+        // dd([
+        //     'stmtMenu' => $stmtMenu,
+        //     'stmtSubMenu' => $stmtSubMenu,
+        //     'stmtMenuId' => $stmtMenuId,
+        //     'stmtSubMenuId' => $stmtSubMenuId,
+        //     'aksesMenu' => $aksesMenu,
+        //     'aksesSubMenu' => $aksesSubMenu
+        // ]);
         return [
             'stmtMenu' => $stmtMenu,
             'stmtSubMenu' => $stmtSubMenu,
