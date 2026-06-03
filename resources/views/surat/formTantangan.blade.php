@@ -8,7 +8,7 @@
         @include('errors.405')
     @else
         <div class="container-fluid">
-            <h3 class="text-black-50">Manajemen Surat Masuk</h3>
+            <h3 class="text-black-50">Manajemen Form</h3>
 
             <div class="row">
                 <div class="col-12">
