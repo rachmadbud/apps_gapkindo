@@ -106,7 +106,7 @@
                                             <tr>
                                                 <td>
                                                     <span class="text-sm text-dark">
-                                                        {{ date('d-m-Y', strtotime($surat->tanggal)) }}
+                                                        {{ date('d-M-Y', strtotime($surat->tanggal)) }}
                                                     </span>
                                                 </td>
 
@@ -169,7 +169,7 @@
                                             <tr>
                                                 <td>
                                                     <span class="text-sm text-dark">
-                                                        {{ date('d-m-Y', strtotime($surat->tanggal)) }}
+                                                        {{ date('d-M-Y', strtotime($surat->tanggal)) }}
                                                     </span>
                                                 </td>
 
