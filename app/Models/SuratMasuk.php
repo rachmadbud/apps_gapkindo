@@ -19,10 +19,19 @@ class SuratMasuk extends Model
         return $data;
     }
 
+    public function getData()
+    {
+        $get = DB::table('surat_masuks')->orderBy('id', 'desc') // atau gunakan 'created_at' jika ada
+            ->limit(2)
+            ->get();
+        return $get;
+    }
+
     public function getDataRow()
     {
-        $row = DB::table('surat_masuks')->count();
-        return $row;
+        // row
+        $dataRow = DB::table('surat_masuks')->count();
+        return $dataRow;
     }
 
     public function findSuratMasuk($id)

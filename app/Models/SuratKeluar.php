@@ -19,10 +19,22 @@ class SuratKeluar extends Model
         return $data;
     }
 
+    public function getData()
+    {
+        // Mengambil 2 data surat keluar paling baru berdasarkan id/tanggal input terbaru
+        $suratKeluarTerbaru = DB::table('surat_keluar')
+            ->orderBy('id', 'desc') // atau gunakan 'created_at' jika ada
+            ->limit(2)
+            ->get();
+
+        return $suratKeluarTerbaru;
+    }
+
     public function getDataRow()
     {
-        $row = DB::table('surat_keluar')->count();
-        return $row;
+        // row
+        $dataRow = DB::table('surat_keluar')->count();
+        return $dataRow;
     }
 
     public function findSuratKeluar($id)

@@ -52,6 +52,37 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
 
+    <style>
+        .card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        /* Efek mengangkat card saat di-hover */
+        .custom-stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06) !important;
+        }
+
+        /* Efek animasi panah bergeser */
+        .custom-link {
+            transition: all 0.2s ease;
+        }
+
+        .custom-link:hover .transition-arrow {
+            transform: translateX(4px);
+        }
+
+        .transition-arrow {
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+    </style>
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

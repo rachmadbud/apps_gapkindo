@@ -49,8 +49,11 @@ class HomeController extends Controller
 
         $id = Auth::user()->id;
 
-        $stmtSuratMasuk = $this->modelSuratMasuk->getDataRow();
-        $stmtSuratKeluar = $this->modelSuratKeluar->getDataRow();
+        $stmtSuratMasuk = $this->modelSuratMasuk->getData();
+        $stmtSuratKeluar = $this->modelSuratKeluar->getData();
+        $stmtSuratKeluarRow = $this->modelSuratKeluar->getDataRow();
+        $stmtSuratMasukRow = $this->modelSuratMasuk->getDataRow();
+        // dd($stmtSuratKeluar);
 
         $user = DB::table('users')
             ->where('id', $id)
@@ -60,7 +63,9 @@ class HomeController extends Controller
             ->with($sidebarMenu)
             ->with('user', $user)
             ->with('stmtSuratMasuk', $stmtSuratMasuk)
-            ->with('stmtSuratKeluar', $stmtSuratKeluar);
+            ->with('stmtSuratKeluar', $stmtSuratKeluar)
+            ->with('stmtSuratKeluarRow', $stmtSuratKeluarRow)
+            ->with('stmtSuratMasukRow', $stmtSuratMasukRow);
     }
 
     // untuk manajemen menu
