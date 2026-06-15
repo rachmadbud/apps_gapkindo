@@ -48,7 +48,11 @@
                                         white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                                 {{ $item->pengirim }}
                                             </td>
-                                            <td>{{ $item->perihal }}</td>
+                                            <td title="{{ $item->perihal }}"
+                                                style="max-width: 180px; 
+                                        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                {{ $item->perihal }}
+                                            </td>
                                             <td><a href="{{ app(CustomClass::class)->rootApp() }}/suratMasuk/lampiran/{{ $item->file_surat }}"
                                                     target="_blank" class="mailbox-attachment-name text-primary"><i
                                                         class="fas fa-paperclip"></i><u> Lampiran</u></a></td>
