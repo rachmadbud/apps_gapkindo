@@ -43,7 +43,11 @@
                                             <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
                                             <td>{{ $item->nomor_agenda }}</td>
                                             <td>{{ $item->nomor_surat }}</td>
-                                            <td>{{ $item->pengirim }}</td>
+                                            <td title="{{ $item->pengirim }}"
+                                                style="max-width: 180px; 
+                                        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                {{ $item->pengirim }}
+                                            </td>
                                             <td>{{ $item->perihal }}</td>
                                             <td><a href="{{ app(CustomClass::class)->rootApp() }}/suratMasuk/lampiran/{{ $item->file_surat }}"
                                                     target="_blank" class="mailbox-attachment-name text-primary"><i
