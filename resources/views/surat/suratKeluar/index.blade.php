@@ -41,8 +41,11 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
                                             <td>{{ $item->nomor_surat }}</td>
-                                            <td>{{ $item->perihal }}</td>
-                                            <td title="{{ $item->ditujukan }}" style="max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                            <td title="{{ $item->perihal }}"
+                                                style="max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                {{ $item->perihal }}</td>
+                                            <td title="{{ $item->ditujukan }}"
+                                                style="max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                                 {{ $item->ditujukan }}
                                             </td>
                                             <td><a href="{{ app(CustomClass::class)->rootApp() }}/suratKeluar/lampiran/{{ $item->lampiran }}"
