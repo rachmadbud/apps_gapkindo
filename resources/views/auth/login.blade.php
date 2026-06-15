@@ -18,15 +18,6 @@
             padding: 0 !important;
         }
 
-        body.login-page {
-            background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%) !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            min-height: 100vh !important;
-            font-family: 'Poppins', 'Inter', sans-serif !important;
-        }
-
         .login-center-wrapper {
             display: flex !important;
             align-items: center !important;
@@ -34,6 +25,8 @@
             width: 100% !important;
             padding: 20px !important;
             box-sizing: border-box !important;
+            min-height: 100vh !important;
+            background: radial-gradient(circle at top left, #202a42 0%, #264633 100%) !important;
         }
 
         /* KOTAK LOGIN DENGAN BINGKAI HIJAU GAPKINDO */
@@ -68,7 +61,7 @@
             justify-content: center;
             align-items: center;
             padding: 3rem 2rem;
-            color: #ffffff;
+            color: #161c22;
             text-align: center;
         }
 
@@ -219,16 +212,13 @@
             </div>
 
             <div class="login-side-visual">
-                <svg class="svg-illustration" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M19 4H5C3.89543 4 3 4.89543 3 6V18C3 19.1046 3.89543 20 5 20H19C20.1046 20 21 19.1046 21 18V6C21 4.89543 20.1046 4 19 4Z"
-                        stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M3 6L12 13L21 6" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <circle cx="18" cy="14" r="4" fill="#0ea5e9" />
-                    <path d="M16.5 14L17.5 15L19.5 13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
+                {{-- <dotlottie-player direction="1" id="animation_dashboard_0025a3ba-1171-11ee-b76d-d322b95be498"
+                    speed="1" mode="normal"
+                    src="https://assets-v2.lottiefiles.com/a/0025a3ba-1171-11ee-b76d-d322b95be498/WDsFToGglY.lottie"
+                    style="width: 360px; height: 260px;" loop autoplay></dotlottie-player> --}}
+
+                <dotlottie-wc src="https://lottie.host/349ac628-f07f-44db-bb7a-38673fded01b/VTmRze8B68.lottie"
+                    style="width: 360px;height: 260px" autoplay loop></dotlottie-wc>
 
                 <div class="px-3">
                     <h5 class="font-weight-bold text-white mb-2" style="letter-spacing: 0.5px;">Manajemen Digital</h5>
@@ -239,6 +229,9 @@
 
         </div>
     </div>
+
+    {{-- <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> --}}
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.14/dist/dotlottie-wc.js" type="module"></script>
 
     <script>
         function togglePasswordVisibility() {
