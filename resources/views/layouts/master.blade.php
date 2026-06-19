@@ -11,7 +11,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('') }}assets/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://raw.githack.com/mrbudbud/fontawesome-pro/master/src/css/all.css">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('') }}assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
@@ -81,11 +81,36 @@
             transition: transform 0.2s ease;
             display: inline-block;
         }
+
+        /* Saat sidebar terbuka (normal), tampilkan icon bars */
+        .nav-icon-toggle::before {
+            content: "\f0c9";
+            /* Kode Unicode FontAwesome untuk fa-bars */
+        }
+
+        /* Saat sidebar tertutup (collapse), ubah icon jadi silang (fa-times) */
+        .sidebar-collapse .nav-icon-toggle::before {
+            content: "\f00d";
+            /* Kode Unicode FontAwesome untuk fa-times */
+        }
+
+        /* 1. Kondisi Default: Sidebar Terbuka, Icon berupa Bars (Garis Tiga) */
+        [data-widget="pushmenu"] i::before {
+            content: "\f0c9" !important;
+            /* Kode unicode Font Awesome untuk fa-bars */
+        }
+
+        /* 2. Kondisi Klik: Body otomatis ditambah class .sidebar-collapse oleh AdminLTE */
+        /* Saat posisi ini, kita paksa ubah icon-nya jadi fa-times (Silang) */
+        body.sidebar-collapse [data-widget="pushmenu"] i::before {
+            content: "\f00d" !important;
+            /* Kode unicode Font Awesome untuk fa-times */
+        }
     </style>
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed ">
     @include('sweetalert::alert')
     <div class="wrapper">
 
@@ -143,6 +168,10 @@
     <script src="{{ asset('') }}assets/plugins/summernote/summernote-bs4.min.js"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('') }}assets/dist/js/adminlte.js"></script>
+
+    <!-- Javascript -->
+    <script src="https://raw.githack.com/mrbudbud/fontawesome-pro/master/src/js/all.min.js"></script>
+
 
     <!-- jQuery -->
     <!-- <script src="{{ asset('') }}assets/plugins/jquery/jquery.min.js"></script> -->
@@ -244,6 +273,35 @@
                 return false;
             return true;
         }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cari tombol pushmenu
+            var button = document.querySelector('[data-widget="pushmenu"]');
+
+            if (button) {
+                // Cari icon di dalam tombol tersebut
+                var icon = button.querySelector('i');
+
+                button.addEventListener('click', function() {
+                    // Kita beri delay 50 milidetik agar AdminLTE selesai memproses class di body
+                    setTimeout(function() {
+                        var isCollapsed = document.body.classList.contains('sidebar-collapse');
+
+                        if (isCollapsed) {
+                            // Jika sidebar menutup, ubah bars jadi silang (times)
+                            icon.classList.remove('fa-bars');
+                            icon.classList.add('fa-times');
+                        } else {
+                            // Jika sidebar membuka, kembalikan ke bars
+                            icon.classList.remove('fa-times');
+                            icon.classList.add('fa-bars');
+                        }
+                    }, 50);
+                });
+            }
+        });
     </script>
 
 </body>

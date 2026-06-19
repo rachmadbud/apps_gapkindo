@@ -20,7 +20,8 @@
                             <div class="d-flex align-items-center">
                                 <div class="d-flex align-items-center justify-content-center text-info rounded-circle mr-3"
                                     style="width: 60px; height: 60px; background-color: #e3f2fd;">
-                                    <i class="fas fa-file-import fa-2x"></i>
+                                    {{-- <i class="fas fa-file-import fa-2x"></i> --}}
+                                    <i class="fas fa-inbox-in fa-2x"></i>
                                 </div>
                                 <div>
                                     <span class="text-muted text-uppercase text-xs font-weight-bold d-block mb-1"
@@ -52,7 +53,8 @@
                             <div class="d-flex align-items-center">
                                 <div class="d-flex align-items-center justify-content-center text-success rounded-circle mr-3"
                                     style="width: 60px; height: 60px; background-color: #e8f5e9;">
-                                    <i class="fas fa-file-export fa-2x"></i>
+                                    {{-- <i class="fas fa-file-export fa-2x"></i> --}}
+                                    <i class="fas fa-inbox-out fa-2x"></i>
                                 </div>
                                 <div>
                                     <span class="text-muted text-uppercase text-xs font-weight-bold d-block mb-1"
@@ -217,12 +219,14 @@
                             <a href="{{ app(CustomClass::class)->rootApp() }}/form/suratKeluar"
                                 class="btn btn-outline-success btn-block text-left py-2 font-weight-bold"
                                 style="border-radius: 8px; font-size: 13px;">
-                                <i class="fas fa-paper-plane mr-2"></i> Buat Draft Surat Keluar
+                                {{-- <i class="fas fa-paper-plane mr-2"></i> --}}
+                                <i class="fal fa-paper-plane mr-2"></i> Buat Draft Surat Keluar
                             </a>
                             <a href="{{ app(CustomClass::class)->rootApp() }}/form/suratMasuk"
                                 class="btn btn-outline-primary btn-block text-left py-2 mb-2 font-weight-bold"
                                 style="border-radius: 8px; font-size: 13px;">
-                                <i class="fas fa-plus-circle mr-2"></i> Registrasi Surat Masuk Baru
+                                {{-- <i class="fas fa-plus-circle mr-2"></i> --}}
+                                <i class="fas fa-file-plus mr-2"></i> Registrasi Surat Masuk Baru
                             </a>
                         </div>
                     </div>
