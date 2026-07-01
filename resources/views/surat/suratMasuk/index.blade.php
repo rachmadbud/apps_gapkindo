@@ -75,4 +75,12 @@
 
         </div>
     @endif
+    @if (session('print_id'))
+        <script>
+            // Begitu user mendarat di index setelah submit form, 
+            // perintah ini akan memaksa browser membuka halaman cetak di TAB BARU
+            var urlCetak = "{{ url('/surat-masuk/print') }}/" + "{{ session('print_id') }}";
+            window.open(urlCetak, '_blank');
+        </script>
+    @endif
 @endsection

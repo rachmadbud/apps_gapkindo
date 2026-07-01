@@ -57,7 +57,8 @@ class SuratMasukController extends Controller
         $tujuan_upload = 'suratMasuk/lampiran';
         $file->move($tujuan_upload, $nama_file);
         // insert data ke table surat_masuk
-        DB::table('surat_masuks')->insert([
+        // Ubah DB::table()->insert menjadi insertGetId untuk mengambil ID data terbaru
+        $id = DB::table('surat_masuks')->insertGetId([
             'tanggal' => $request->tanggal,
             'nomor_agenda' => $request->nomorAgenda,
             'nomor_surat' => $request->nomorSurat,
@@ -70,7 +71,21 @@ class SuratMasukController extends Controller
         ]);
 
         toast(app(CustomClass::class)->notifSuksesTambah(), 'success');
-        return redirect()->action([SuratMasukController::class, 'index']);
+        // return redirect()->action([SuratMasukController::class, 'index']);
+
+        // KEMBALI KE INDEX, tapi bawa status 'print_id' lewat session
+        return redirect()->route('suratMasuk')->with('print_id', $id);
+    }
+
+    public function printPreview($id)
+    {
+        $surat = DB::table('surat_masuks')->where('id', $id)->first();
+
+        if (!$surat) {
+            abort(404);
+        }
+
+        return view('surat.suratMasuk.print', compact('surat'));
     }
 
     public function formSuratMasukEdit($id)

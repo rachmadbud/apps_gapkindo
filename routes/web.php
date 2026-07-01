@@ -128,6 +128,7 @@ Route::get('/manajemenUnker/hapus/{id}', [HomeController::class, 'manajemenUnker
 Route::get('/suratMasukx', [SuratMasukController::class, 'index'])->name('suratMasuk')->middleware('auth');
 Route::get('/form/suratMasuk', [SuratMasukController::class, 'formSuratMasuk'])->name('formSuratMasuk')->middleware('auth');
 Route::post('/form/suratMasuk/submit', [SuratMasukController::class, 'formSuratMasukSubmit'])->name('formSuratMasukSubmit')->middleware('auth');
+Route::get('/surat-masuk/print/{id}', [SuratMasukController::class, 'printPreview']);
 
 // Update
 Route::get('/suratMasuk/edit/{id}', [SuratMasukController::class, 'formSuratMasukEdit'])->name('formSuratMasukEdit')->middleware('auth');
