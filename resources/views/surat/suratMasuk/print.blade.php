@@ -9,34 +9,37 @@
         /* Mengubah orientasi menjadi LANDSCAPE (A4 dibagi 4 kotak sama besar) */
         @page {
             size: A6 landscape;
-            margin: 5mm;
+            margin: 4mm;
+            /* Diperkecil dari 5mm */
         }
 
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 13px;
-            /* Ukuran dasar teks diperbesar dari 11px */
-            line-height: 1.4;
+            /* Diperkecil dari 13px */
+            line-height: 1.3;
+            /* Diperkecil dari 1.4 */
             margin: 0;
             padding: 0;
             background-color: #fff;
             color: #000;
         }
 
-        /* Kotak Utama Tetap Terjaga */
+        /* Kotak Utama Disesuaikan */
         .ticket-wrapper {
-            width: 100%;
-            height: 94mm;
-            /* Batas tinggi pas untuk 1/4 A4 landscape */
-            border: 2.5px solid #000;
-            /* Garis tepi sedikit dipertebal agar makin tegas */
-            padding: 2px;
+            width: 97.9%;
+            height: 90mm;
+            /* Diperkecil sedikit agar aman dari overflow */
+            border: 2px solid #dad8d8;
+            /* Diperkecil dari 2.5px */
+            padding: 0.1mm;
             box-sizing: border-box;
         }
 
         .ticket-inner {
             border: 1px solid #000;
-            padding: 10px 14px;
+            padding: 8px 12px;
+            /* Diperkecil dari 10px 14px */
             box-sizing: border-box;
             height: 100%;
             display: flex;
@@ -49,9 +52,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2.5px solid #000;
-            padding-bottom: 6px;
-            margin-bottom: 10px;
+            border-bottom: 2px solid #000;
+            /* Diperkecil dari 2.5px */
+            padding-bottom: 4px;
+            /* Diperkecil dari 6px */
+            margin-bottom: 6px;
+            /* Diperkecil dari 10px */
         }
 
         .kop-left {
@@ -59,25 +65,27 @@
         }
 
         .kop-title {
-            font-size: 14px;
-            /* Diperbesar */
+            font-size: 12px;
+            /* Diperkecil dari 14px */
             font-weight: bold;
             text-transform: uppercase;
         }
 
         .kop-subtitle {
-            font-size: 10px;
-            /* Diperbesar */
+            font-size: 9px;
+            /* Diperkecil dari 10px */
             color: #333;
         }
 
         .doc-title {
-            font-size: 13px;
-            /* Diperbesar */
+            font-size: 11px;
+            /* Diperkecil dari 13px */
             font-weight: bold;
             text-transform: uppercase;
-            border: 1.5px solid #000;
-            padding: 3px 10px;
+            border: 1px solid #000;
+            /* Diperkecil dari 1.5px */
+            padding: 2px 8px;
+            /* Diperkecil */
             background-color: #f0f0f0;
         }
 
@@ -87,68 +95,48 @@
             justify-content: space-between;
             align-items: flex-start;
             flex-grow: 1;
-            margin-top: 5px;
+            margin-top: 3px;
         }
 
-        /* Tabel Data Sisi Kiri (Teks Diperbesar) */
+        /* Tabel Data Sisi Kiri */
         .data-table {
-            width: 65%;
+            width: 100%;
+            /* Diubah ke 100% karena box tanda tangan opsional/dihapus jika space mepet */
             border-collapse: collapse;
         }
 
         .data-table td {
-            padding: 5px 2px;
-            /* Jarak baris sedikit dilonggarkan agar rapi */
+            padding: 3px 2px;
+            /* Jarak baris dirapatkan dari 5px */
             vertical-align: top;
-            font-size: 13px;
-            /* Diperbesar dari 11px */
+            font-size: 11px;
+            /* Diperkecil dari 13px */
         }
 
         .label {
-            width: 30%;
+            width: 25%;
+            /* Dioptimalkan */
             font-weight: bold;
             color: #000;
         }
 
         .separator {
-            width: 5%;
+            width: 3%;
             text-align: center;
             font-weight: bold;
         }
 
         .value {
-            width: 65%;
+            width: 72%;
             word-break: break-word;
-        }
-
-        /* Area Tanda Tangan Sisi Kanan */
-        .signature-box {
-            width: 30%;
-            text-align: center;
-            font-size: 12px;
-            /* Diperbesar dari 10px */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 52mm;
-        }
-
-        .signature-space {
-            height: 45px;
-        }
-
-        .signature-name {
-            font-weight: bold;
-            text-decoration: underline;
-            font-size: 12px;
         }
 
         /* Footer Sistem */
         .system-footer {
             border-top: 1px dashed #000;
-            padding-top: 5px;
-            font-size: 9px;
-            /* Diperbesar */
+            padding-top: 4px;
+            font-size: 8px;
+            /* Diperkecil dari 9px */
             color: #444;
             font-style: italic;
             display: flex;
@@ -199,7 +187,7 @@
                     <tr>
                         <td class="label">Perihal</td>
                         <td class="separator">:</td>
-                        <td class="value" style="font-weight: bold; font-size: 15px; color: #000;">
+                        <td class="value" style="font-weight: bold; font-size: 12px; color: #000;">
                             "{{ $surat->perihal }}"</td>
                     </tr>
                 </table>
