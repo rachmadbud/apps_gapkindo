@@ -199,20 +199,15 @@
                     <tr>
                         <td class="label">Perihal</td>
                         <td class="separator">:</td>
-                        <td class="value" style="font-style: italic;">"{{ $surat->perihal }}"</td>
+                        <td class="value" style="font-weight: bold; font-size: 15px; color: #000;">
+                            "{{ $surat->perihal }}"</td>
                     </tr>
                 </table>
-
-                <div class="signature-box">
-                    <div>Penerima,</div>
-                    <div class="signature-space"></div>
-                    <div class="signature-name">{{ auth()->user()->name }}</div>
-                </div>
 
             </div>
 
             <div class="system-footer">
-                <span>Petugas: {{ auth()->user()->name }}</span>
+                <span>Oleh: {{ auth()->user()->name }}</span>
                 <span>Waktu Cetak: {{ now()->format('d/m/Y H:i') }} Wib</span>
             </div>
 

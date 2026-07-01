@@ -158,7 +158,8 @@ class SuratMasukController extends Controller
 
         toast(app(CustomClass::class)->notifSuksesEdit(), 'success');
 
-        return redirect()->action([SuratMasukController::class, 'index']);
+        // return redirect()->action([SuratMasukController::class, 'index']);
+
     }
 
     public function formTantangan()
