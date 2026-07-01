@@ -208,7 +208,7 @@
 
             <div class="system-footer">
                 <span>Oleh: {{ auth()->user()->name }}</span>
-                <span>Waktu Cetak: {{ now()->format('d/m/Y H:i') }} Wib</span>
+                <span>Dicetak otomatis oleh Sistem: {{ now()->format('d/m/Y H:i') }} Wib</span>
             </div>
 
         </div>
