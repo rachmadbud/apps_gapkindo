@@ -195,7 +195,7 @@
         <div class="form-container">
 
             <div class="header-box">
-                <h2>Sistem Informasi Kearsipan 2</h2>
+                <h2>Sistem Informasi Kearsipan</h2>
                 <p>Lembar Bukti Agenda Surat Masuk</p>
             </div>
 
@@ -261,8 +261,8 @@
             </table>
             <table class="tabel-disposisi">
                 <tr>
-                    <td width="39%">AASISTEN DIREKTUR 2<span class="checkbox">( )</span></td>
-                    <td width="28%">DI PELAJARI <span class="checkbox">( )</span></td>
+                    <td width="39%">ASISTEN DIREKTUR 2<span class="checkbox">( )</span></td>
+                    <td width="28%">DIPELAJARI <span class="checkbox">( )</span></td>
                     <td width="34%">UNTUK DIKETAHUI<span class="checkbox">( )</span></td>
                 </tr>
             </table>
@@ -278,7 +278,7 @@
         </div>
 
         <div class="footer-sistem">
-            <div>Oleh: administrator</div>
+            <div>Oleh: {{ auth()->user()->name }}</div>
             <div>Dicetak otomatis oleh Sistem 02/07/2026</div>
         </div>
 
