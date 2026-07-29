@@ -15,8 +15,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <a href="{{ app(CustomClass::class)->rootApp() }}/form/suratMasuk" class="btn btn-info"><i
-                                        class='fa fa-plus'></i></a>
+
                             </h3>
                         </div>
                         <!-- /.card-header -->
