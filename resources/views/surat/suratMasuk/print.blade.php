@@ -121,7 +121,7 @@
             padding: 9px;
             font-weight: bold;
             font-size: 13px;
-            height: 2.5cm;
+            height: 1cm;
         }
 
         /* === TABEL DISPOSISI BAWAH === */
@@ -254,22 +254,22 @@
                     <td colspan="3" class="bold">KEPADA :</td>
                 </tr>
                 <tr>
-                    <td width="39%">ASISTEN DIREKTUR <span class="checkbox">( )</span></td>
-                    <td width="28%">DISELESAIKAN <span class="checkbox">( )</span></td>
-                    <td width="34%">MEWAKILI SAYA <span class="checkbox">( )</span></td>
+                    <td width="39%">ASISTEN DIREKTUR <span class="checkbox">(....)</span></td>
+                    <td width="28%">DISELESAIKAN <span class="checkbox">(....)</span></td>
+                    <td width="34%">MEWAKILI SAYA <span class="checkbox">(....)</span></td>
                 </tr>
             </table>
             <table class="tabel-disposisi">
                 <tr>
-                    <td width="39%">ASISTEN DIREKTUR 2<span class="checkbox">( )</span></td>
-                    <td width="28%">DIPELAJARI <span class="checkbox">( )</span></td>
-                    <td width="34%">UNTUK DIKETAHUI<span class="checkbox">( )</span></td>
+                    <td width="39%">ASISTEN DIREKTUR 2<span class="checkbox">(....)</span></td>
+                    <td width="28%">DIPELAJARI <span class="checkbox">(....)</span></td>
+                    <td width="34%">UNTUK DIKETAHUI<span class="checkbox">(....)</span></td>
                 </tr>
             </table>
             <table class="tabel-disposisi">
                 <tr class="row-catatan">
                     <td colspan="3"
-                        style="height: 2.5cm !important; min-height: 3.5cm !important; vertical-align: top !important; padding: 10px !important;">
+                        style="height: 5.4cm !important; min-height: 3.5cm !important; vertical-align: top !important; padding: 10px !important;">
 
                     </td>
                 </tr>
