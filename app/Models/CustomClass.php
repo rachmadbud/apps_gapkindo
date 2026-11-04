@@ -190,7 +190,7 @@ class CustomClass
     public function notifGagalLogin()
     {
         // return "Login gagal. Email / Password salah atau User tidak terdaftar.";
-        return "Login gagal. NRIK / Password salah atau User tidak terdaftar.";
+        return "Login gagal. Username / Password salah atau User tidak terdaftar.";
     }
 
     public function notifIPNyangkut()
