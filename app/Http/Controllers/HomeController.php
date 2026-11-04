@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\CustomClass;
 use App\Models\SidebarModel;
-use App\Models\DashboardModel;
 
 use App\Models\LogActivity;
 // use App\Http\Controllers\Carbon;
@@ -16,8 +15,6 @@ use Illuminate\Database\Eloquent\Relations\Load;
 
 use Auth;
 use Alert;
-use App\Models\SuratKeluar;
-use App\Models\SuratMasuk;
 use Illuminate\Support\Facades\App;
 
 
@@ -31,8 +28,6 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->modelSuratMasuk = new SuratMasuk();
-        $this->modelSuratKeluar = new SuratKeluar();
     }
 
     /**
@@ -47,25 +42,7 @@ class HomeController extends Controller
         $menuModel = new SidebarModel();
         $sidebarMenu = $menuModel->getMenu();
 
-        $id = Auth::user()->id;
-
-        $stmtSuratMasuk = $this->modelSuratMasuk->getData();
-        $stmtSuratKeluar = $this->modelSuratKeluar->getData();
-        $stmtSuratKeluarRow = $this->modelSuratKeluar->getDataRow();
-        $stmtSuratMasukRow = $this->modelSuratMasuk->getDataRow();
-        // dd($stmtSuratKeluar);
-
-        $user = DB::table('users')
-            ->where('id', $id)
-            ->get();
-
-        return view('dashboard')
-            ->with($sidebarMenu)
-            ->with('user', $user)
-            ->with('stmtSuratMasuk', $stmtSuratMasuk)
-            ->with('stmtSuratKeluar', $stmtSuratKeluar)
-            ->with('stmtSuratKeluarRow', $stmtSuratKeluarRow)
-            ->with('stmtSuratMasukRow', $stmtSuratMasukRow);
+        return view('dashboard.general')->with($sidebarMenu);
     }
 
     // untuk manajemen menu

@@ -124,7 +124,9 @@
                     <a class="btn btn-success mr-2" href="{{ route('laporanPenjualan.template') }}">
                         <i class="fas fa-file-excel mr-1"></i> Download Template Excel
                     </a>
-                    <a class="btn btn-outline-primary" href="{{ route('laporanPenjualan.guide') }}">
+                    <a class="btn btn-outline-primary"
+                        href="{{ asset('manualbook/Manualbook_Laporan_Bulanan_Cabang.pdf') }}" target="_blank">
+                        {{-- {{ route('laporanPenjualan.guide') }} --}}
                         <i class="fas fa-book mr-1"></i> Download Panduan PDF
                     </a>
                 </div>
@@ -300,48 +302,50 @@
                     @endif
 
                     <div class="card report-card mb-0">
-                        <div class="card-header"><h6 class="card-title">Data Perusahaan</h6></div>
+                        <div class="card-header">
+                            <h6 class="card-title">Data Perusahaan</h6>
+                        </div>
                         <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped" id="preview-data-table">
-                            <thead>
-                                <tr align="center" class="alert-dark">
-                                    <th>No.</th>
-                                    <th>Nama Perusahaan</th>
-                                    <th>Kapasitas (TON/THN)</th>
-                                    <th>Kode TPP</th>
-                                    <th>Jenis Karet</th>
-                                    <th>Oper. Fact. (UNIT)</th>
-                                    <th>Produksi (KG)</th>
-                                    <th>Lokal (KG)</th>
-                                    <th>Ekspor (KG)</th>
-                                    <th>Penjualan (KG)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (array_slice($preview['rows'], 0, 100) as $row)
-                                    <tr>
-                                        <td>{{ $row['source_number'] ?: '—' }}</td>
-                                        <td>{{ $row['company_name'] ?: '—' }}</td>
-                                        <td>{{ $row['capacity'] === null ? '—' : number_format($row['capacity'], 0, ',', '.') }}
-                                        </td>
-                                        <td>{{ $row['tpp_code'] ?: '—' }}</td>
-                                        <td>{{ $row['rubber_type'] ?: '—' }}</td>
-                                        <td>{{ $row['operating_factor'] === null ? '—' : number_format($row['operating_factor'], 2, ',', '.') }}
-                                        </td>
-                                        <td>{{ $row['production'] === null ? '—' : number_format($row['production'], 0, ',', '.') }}
-                                        </td>
-                                        <td>{{ $row['local_sales'] === null ? '—' : number_format($row['local_sales'], 0, ',', '.') }}
-                                        </td>
-                                        <td>{{ $row['export_sales'] === null ? '—' : number_format($row['export_sales'], 0, ',', '.') }}
-                                        </td>
-                                        <td>{{ $row['total_sales'] === null ? '—' : number_format($row['total_sales'], 0, ',', '.') }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="preview-data-table">
+                                    <thead>
+                                        <tr align="center" class="alert-dark">
+                                            <th>No.</th>
+                                            <th>Nama Perusahaan</th>
+                                            <th>Kapasitas (TON/THN)</th>
+                                            <th>Kode TPP</th>
+                                            <th>Jenis Karet</th>
+                                            <th>Oper. Fact. (UNIT)</th>
+                                            <th>Produksi (KG)</th>
+                                            <th>Lokal (KG)</th>
+                                            <th>Ekspor (KG)</th>
+                                            <th>Penjualan (KG)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (array_slice($preview['rows'], 0, 100) as $row)
+                                            <tr>
+                                                <td>{{ $row['source_number'] ?: '—' }}</td>
+                                                <td>{{ $row['company_name'] ?: '—' }}</td>
+                                                <td>{{ $row['capacity'] === null ? '—' : number_format($row['capacity'], 0, ',', '.') }}
+                                                </td>
+                                                <td>{{ $row['tpp_code'] ?: '—' }}</td>
+                                                <td>{{ $row['rubber_type'] ?: '—' }}</td>
+                                                <td>{{ $row['operating_factor'] === null ? '—' : number_format($row['operating_factor'], 2, ',', '.') }}
+                                                </td>
+                                                <td>{{ $row['production'] === null ? '—' : number_format($row['production'], 0, ',', '.') }}
+                                                </td>
+                                                <td>{{ $row['local_sales'] === null ? '—' : number_format($row['local_sales'], 0, ',', '.') }}
+                                                </td>
+                                                <td>{{ $row['export_sales'] === null ? '—' : number_format($row['export_sales'], 0, ',', '.') }}
+                                                </td>
+                                                <td>{{ $row['total_sales'] === null ? '—' : number_format($row['total_sales'], 0, ',', '.') }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     @if (count($preview['rows']) > 100)
@@ -550,7 +554,10 @@
                 window.setTimeout(function() {
                     const previewTable = document.getElementById('preview-data-table');
                     if (previewTable) {
-                        previewTable.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        previewTable.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }
                 }, 250);
             @endif

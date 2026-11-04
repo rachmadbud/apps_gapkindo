@@ -53,9 +53,10 @@ class MonthlyBranchReportController extends Controller
     {
         $this->ensureBranch();
 
-        return \Barryvdh\DomPDF\Facade\Pdf::loadView('laporanPenjualan.guide')
-            ->setPaper('a4')
-            ->download('Panduan_Upload_Laporan_Bulanan.pdf');
+        return response()->download(
+            public_path('manualbook/Manualbook_Laporan_Bulanan_Cabang.pdf'),
+            'Manualbook_Laporan_Bulanan_Cabang.pdf'
+        );
     }
 
     public function preview(Request $request, MonthlyBranchReportExcelParser $parser)
