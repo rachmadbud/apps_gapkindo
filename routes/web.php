@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\FromController;
 use App\Http\Controllers\PublikasiController;
+use App\Http\Controllers\MonthlyBranchReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -211,3 +212,16 @@ Route::post('/form/publikasi/submit', [PublikasiController::class, 'formPublikas
 
 // Form Tantangans
 Route::get('/form/tantangan', [FromController::class, 'formTantangan'])->name('formTantangan')->middleware('auth');
+
+// Laporan Penjualan
+Route::middleware('auth')->prefix('laporanPenjualan')->name('laporanPenjualan.')->group(function () {
+    Route::get('/', [MonthlyBranchReportController::class, 'index'])->name('index');
+    Route::get('/template', [MonthlyBranchReportController::class, 'downloadTemplate'])->name('template');
+    Route::get('/panduan', [MonthlyBranchReportController::class, 'downloadGuide'])->name('guide');
+    Route::post('/preview', [MonthlyBranchReportController::class, 'preview'])->name('preview');
+    Route::post('/submit', [MonthlyBranchReportController::class, 'store'])->name('store');
+    Route::get('/{report}', [MonthlyBranchReportController::class, 'show'])->name('show');
+    Route::post('/{report}/approve', [MonthlyBranchReportController::class, 'approve'])->name('approve');
+    Route::post('/{report}/revision', [MonthlyBranchReportController::class, 'requestRevision'])->name('revision');
+    Route::get('/{report}/uploads/{upload}/download', [MonthlyBranchReportController::class, 'download'])->name('download');
+});

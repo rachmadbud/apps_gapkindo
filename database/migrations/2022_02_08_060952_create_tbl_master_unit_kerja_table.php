@@ -23,6 +23,7 @@ class CreateTblMasterUnitKerjaTable extends Migration
         });
 
         DB::table('tbl_master_unit_kerja')->insert(['id' => 1, 'nama' => 'Teknologi Informasi', 'singkatan' => 'TI', 'email' => 'test@gmail.com', 'status_data' => 1]);
+        DB::table('tbl_master_unit_kerja')->insert(['id' => 2, 'nama' => 'Cabang', 'singkatan' => 'CBG', 'email' => 'cbg@gmail.com', 'status_data' => 1]);
     }
 
     /**

@@ -1,5 +1,10 @@
 @php
     use App\Models\CustomClass;
+    use Illuminate\Support\Facades\DB;
+
+    $userRoleLabel = DB::table('tbl_master_role')
+        ->where('id', Auth::user()->id_role)
+        ->value('nama');
 @endphp
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4 main-sidebar-custom">
@@ -63,7 +68,7 @@
                 </h6>
                 <small class="text-muted d-block text-truncate"
                     style="font-size: 0.7rem; color: rgba(255,255,255,0.4) !important;">
-                    Administrator
+                    {{ $userRoleLabel ?: 'Pengguna' }}
                 </small>
             </div>
 
