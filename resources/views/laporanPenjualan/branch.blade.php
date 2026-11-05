@@ -174,13 +174,9 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="report_year">Tahun laporan</label>
-                            <select class="form-control" id="report_year" name="report_year" required>
-                                @for ($year = 2100; $year >= 2000; $year--)
-                                    <option value="{{ $year }}"
-                                        {{ (int) old('report_year', $selectedYear) === $year ? 'selected' : '' }}>
-                                        {{ $year }}</option>
-                                @endfor
-                            </select>
+                            <input class="form-control" type="number" id="report_year" name="report_year"
+                                min="2000" max="2100" step="1"
+                                value="{{ old('report_year', $selectedYear) }}" required>
                         </div>
                     </div>
 
