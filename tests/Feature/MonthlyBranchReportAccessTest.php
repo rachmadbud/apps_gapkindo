@@ -179,6 +179,7 @@ class MonthlyBranchReportAccessTest extends TestCase
         $this->actingAs($branchUser)
             ->get('/laporanPenjualan?history_year=2025')
             ->assertOk()
+            ->assertSee('2100')
             ->assertSee('laporan-2025.xlsx')
             ->assertDontSee('laporan-2026.xlsx')
             ->assertDontSee('laporan-jatim-2025.xlsx');

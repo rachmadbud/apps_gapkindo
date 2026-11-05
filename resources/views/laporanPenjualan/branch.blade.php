@@ -175,7 +175,7 @@
                         <div class="form-group col-md-4">
                             <label for="report_year">Tahun laporan</label>
                             <select class="form-control" id="report_year" name="report_year" required>
-                                @for ($year = now()->year + 1; $year >= 2020; $year--)
+                                @for ($year = 2100; $year >= 2000; $year--)
                                     <option value="{{ $year }}"
                                         {{ (int) old('report_year', $selectedYear) === $year ? 'selected' : '' }}>
                                         {{ $year }}</option>
