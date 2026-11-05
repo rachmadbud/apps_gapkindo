@@ -206,7 +206,7 @@ class MonthlyBranchReportController extends Controller
 
         toast('Laporan berhasil diunggah dan menunggu review Pusat.', 'success');
 
-        return redirect()->route('laporanPenjualan.index');
+        return redirect()->route('laporanPenjualan.index', ['history_year' => $year]);
     }
 
     public function show(MonthlyBranchReport $report)
@@ -267,17 +267,37 @@ class MonthlyBranchReportController extends Controller
             ->first();
         $selectedMonth = (int) ($selected['report_month'] ?? $request->old('report_month', $revisionReport->report_month ?? now()->month));
         $selectedYear = (int) ($selected['report_year'] ?? $request->old('report_year', $revisionReport->report_year ?? now()->year));
+        $historyYear = $request->input('history_year', $request->query('history_year', (string) now()->year));
+        abort_unless(
+            is_string($historyYear)
+                && ($historyYear === 'all' || (ctype_digit($historyYear) && (int) $historyYear >= 2000 && (int) $historyYear <= 2100)),
+            422
+        );
         $unitName = DB::table('tbl_master_unit_kerja')
             ->where('id', $user->id_unit_kerja)
             ->value('nama');
+
+        $reportYears = MonthlyBranchReport::query()
+            ->where('branch_user_id', $user->id)
+            ->distinct()
+            ->orderByDesc('report_year')
+            ->pluck('report_year')
+            ->push(now()->year)
+            ->unique()
+            ->sortDesc()
+            ->values();
 
         $reports = MonthlyBranchReport::query()
             ->with('latestUpload')
             ->withCount('uploads')
             ->where('branch_user_id', $user->id)
+            ->when($historyYear !== 'all', function ($query) use ($historyYear) {
+                $query->where('report_year', (int) $historyYear);
+            })
             ->orderByDesc('report_year')
             ->orderByDesc('report_month')
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
         $currentReport = MonthlyBranchReport::query()
             ->where('branch_user_id', $user->id)
             ->where('report_month', $selectedMonth)
@@ -299,6 +319,8 @@ class MonthlyBranchReportController extends Controller
             'previewFileSize' => $selected['file_size'] ?? null,
             'selectedMonth' => $selectedMonth,
             'selectedYear' => $selectedYear,
+            'historyYear' => $historyYear,
+            'reportYears' => $reportYears,
         ]));
     }
 

@@ -160,6 +160,7 @@
                 <form action="{{ route('laporanPenjualan.preview') }}" method="POST" enctype="multipart/form-data"
                     id="report-upload-form">
                     @csrf
+                    <input type="hidden" name="history_year" value="{{ $historyYear }}">
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="report_month">Bulan laporan</label>
@@ -370,8 +371,22 @@
         @endif
 
         <div class="card report-card report-tone-secondary">
-            <div class="card-header">
-                <h2 class="card-title">Riwayat Laporan</h2>
+            <div class="card-header d-flex flex-wrap justify-content-between align-items-center">
+                <h2 class="card-title mb-2 mb-md-0">Riwayat Laporan</h2>
+                <form action="{{ route('laporanPenjualan.index') }}" method="GET" class="form-inline">
+                    <label for="history_year" class="mr-2 mb-0">Tahun</label>
+                    <select class="form-control form-control-sm mr-2" id="history_year" name="history_year">
+                        <option value="all" {{ $historyYear === 'all' ? 'selected' : '' }}>Semua tahun</option>
+                        @foreach ($reportYears as $year)
+                            <option value="{{ $year }}" {{ (string) $year === $historyYear ? 'selected' : '' }}>
+                                {{ $year }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <button class="btn btn-sm btn-primary" type="submit">
+                        <i class="fas fa-filter mr-1"></i> Tampilkan
+                    </button>
+                </form>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
