@@ -22,10 +22,11 @@ class SidebarModel extends Model
         // cek menu & submenu apa saja yang dapat diakses oleh role yang login
         $stmtUsers = DB::table('users as a')
             ->join('tbl_master_role as b', 'a.id_role', '=', 'b.id')
-            ->select('b.id_menu', 'b.id_submenu')
+            ->select('a.id_role', 'b.id_menu', 'b.id_submenu')
             ->where('a.id', $id)
             ->get();
         foreach ($stmtUsers as $dataUsers) {
+            $idRole = $dataUsers->id_role;
             $idMenu = $dataUsers->id_menu;
             $idSubMenu = $dataUsers->id_submenu;
         }
@@ -45,37 +46,34 @@ class SidebarModel extends Model
         // $stmtMenuId = DB::select('select id from tbl_master_menu where link = ?', [$RouteName]);
         // $stmtSubMenuId = DB::select('select id, id_menu from tbl_master_submenu where link = ?', [$RouteName]);
 
-        $stmtMenuId = DB::select("select id from tbl_master_menu where link like '%" . $RouteName . "' ");
-        $stmtSubMenuId = DB::select("select id, id_menu from tbl_master_submenu where link like '%" . $RouteName . "' ");
-        $roleMenuIds = array_map('trim', explode(',', (string) $idMenu));
-        $roleSubMenuIds = array_map('trim', explode(',', (string) $idSubMenu));
+        $stmtMenuId = DB::table('tbl_master_menu')
+            ->where('link', 'like', '%' . $RouteName)
+            ->get(['id']);
+        $stmtSubMenuId = DB::table('tbl_master_submenu')
+            ->where('link', 'like', '%' . $RouteName)
+            ->get(['id', 'id_menu']);
 
+        $stmtRoleMenu = [];
+        $stmtRoleSubMenu = [];
         foreach ($stmtMenuId as $dataMenuId) {
             $regIdMenu = $dataMenuId->id;
-            $stmtRoleMenu = [(object) [
-                'jum_menu' => in_array((string) $regIdMenu, $roleMenuIds, true) ? 1 : 0,
-            ]];
+            $stmtRoleMenu = DB::select(
+                'select count(id) as jum_menu from tbl_master_role where id = ? and id_menu REGEXP ?',
+                [$idRole, '[[:<:]]' . $regIdMenu . '[[:>:]]']
+            );
         }
 
         foreach ($stmtSubMenuId as $dataSubMenuId) {
             $regIdSubMenu = $dataSubMenuId->id;
-            $stmtRoleSubMenu = [(object) [
-                'jum_submenu' => in_array((string) $regIdSubMenu, $roleSubMenuIds, true) ? 1 : 0,
-            ]];
+            $stmtRoleSubMenu = DB::select(
+                'select count(id) as jum_submenu from tbl_master_role where id = ? and id_submenu REGEXP ?',
+                [$idRole, '[[:<:]]' . $regIdSubMenu . '[[:>:]]']
+            );
         }
 
         (isset($stmtRoleMenu[0]->jum_menu) && $stmtRoleMenu[0]->jum_menu > 0) ? $aksesMenu = 1 : $aksesMenu = 0;
         (isset($stmtRoleSubMenu[0]->jum_submenu) && $stmtRoleSubMenu[0]->jum_submenu > 0) ? $aksesSubMenu = 1 : $aksesSubMenu = 0;
 
-
-        // dd([
-        //     'stmtMenu' => $stmtMenu,
-        //     'stmtSubMenu' => $stmtSubMenu,
-        //     'stmtMenuId' => $stmtMenuId,
-        //     'stmtSubMenuId' => $stmtSubMenuId,
-        //     'aksesMenu' => $aksesMenu,
-        //     'aksesSubMenu' => $aksesSubMenu
-        // ]);
         return [
             'stmtMenu' => $stmtMenu,
             'stmtSubMenu' => $stmtSubMenu,

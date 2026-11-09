@@ -395,7 +395,7 @@ class MonthlyBranchReportController extends Controller
             $query->where('report.status', $filters['status']);
         }
 
-        $reports = $query->orderBy('u.name')->paginate(15)->withQueryString();
+        $reports = $query->orderBy('u.id', 'asc')->paginate(15)->withQueryString();
 
         return view('laporanPenjualan.admin', array_merge($this->sidebarData(), [
             'reports' => $reports,
