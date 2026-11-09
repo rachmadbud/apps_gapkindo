@@ -26,7 +26,8 @@ class MonthlyBranchReportController extends Controller
     public function index(Request $request)
     {
         $role = $this->roleName();
-        abort_unless($this->isBranchRole($role) || $this->isAdminRole($role), 403);
+        $hasAdminAccess = $this->hasReportAdminAccess();
+        abort_unless($this->isBranchRole($role) || $hasAdminAccess, 403);
 
         if ($this->isBranchRole($role)) {
             return $this->branchDashboard($request);
@@ -216,7 +217,7 @@ class MonthlyBranchReportController extends Controller
 
         return view('laporanPenjualan.detail', array_merge($this->sidebarData(), [
             'report' => $report,
-            'isAdmin' => $this->isAdminRole($this->roleName()),
+            'isAdmin' => $this->hasReportAdminAccess(),
         ]));
     }
 
@@ -457,9 +458,31 @@ class MonthlyBranchReportController extends Controller
         return $role === 'CABANG';
     }
 
-    private function isAdminRole(string $role): bool
+    private function hasReportAdminAccess(): bool
     {
-        return in_array($role, ['SUPERUSER', 'ADMIN', 'ADMINISTRATOR'], true);
+        if ($this->isBranchRole($this->roleName())) {
+            return false;
+        }
+
+        $reportSubmenu = DB::table('tbl_master_submenu')
+            ->where('link', '/laporanPenjualan')
+            ->first(['id', 'id_menu']);
+        if (!$reportSubmenu) {
+            return false;
+        }
+
+        $role = DB::table('tbl_master_role')
+            ->where('id', auth()->user()->id_role)
+            ->first(['id_menu', 'id_submenu']);
+        if (!$role) {
+            return false;
+        }
+
+        $roleMenus = array_map('trim', explode(',', (string) $role->id_menu));
+        $roleSubmenus = array_map('trim', explode(',', (string) $role->id_submenu));
+
+        return in_array((string) $reportSubmenu->id_menu, $roleMenus, true)
+            && in_array((string) $reportSubmenu->id, $roleSubmenus, true);
     }
 
     private function ensureBranch(): void
@@ -469,7 +492,7 @@ class MonthlyBranchReportController extends Controller
 
     private function ensureAdmin(): void
     {
-        abort_unless($this->isAdminRole($this->roleName()), 403);
+        abort_unless($this->hasReportAdminAccess(), 403);
     }
 
     private function sidebarData(): array
@@ -481,7 +504,7 @@ class MonthlyBranchReportController extends Controller
     {
         $role = $this->roleName();
         abort_unless(
-            $this->isAdminRole($role)
+            $this->hasReportAdminAccess()
                 || ($this->isBranchRole($role) && (int) $report->branch_user_id === (int) auth()->id()),
             403
         );

@@ -81,6 +81,18 @@ class MonthlyBranchReportAccessTest extends TestCase
             'id_menu' => '1',
             'id_submenu' => '1',
         ]);
+        DB::table('tbl_master_role')->insert([
+            'id' => 3,
+            'nama' => 'SEKRETARIAT PUSAT',
+            'id_menu' => '1',
+            'id_submenu' => '15',
+        ]);
+        DB::table('tbl_master_role')->insert([
+            'id' => 4,
+            'nama' => 'PENGGUNA TANPA AKSES LAPORAN',
+            'id_menu' => '1',
+            'id_submenu' => '1',
+        ]);
         DB::table('tbl_master_unit_kerja')->insert(['id' => 2, 'nama' => 'Unit Cabang']);
         DB::table('tbl_master_menu')->insert([
             'id' => 1,
@@ -97,9 +109,19 @@ class MonthlyBranchReportAccessTest extends TestCase
             'status_data' => '1',
             'urutan' => 1,
         ]);
+        DB::table('tbl_master_submenu')->insert([
+            'id' => 15,
+            'nama' => 'Laporan Penjualan',
+            'id_menu' => 1,
+            'link' => '/laporanPenjualan',
+            'status_data' => '1',
+            'urutan' => 15,
+        ]);
         DB::table('users')->insert([
             ['id' => 1, 'name' => 'SUMUT', 'email' => 'sumut@example.test', 'password' => 'unused', 'id_role' => 2, 'id_unit_kerja' => 2],
             ['id' => 2, 'name' => 'JATIM', 'email' => 'jatim@example.test', 'password' => 'unused', 'id_role' => 2, 'id_unit_kerja' => 2],
+            ['id' => 3, 'name' => 'Zarfian', 'email' => 'zarfian@example.test', 'password' => 'unused', 'id_role' => 3, 'id_unit_kerja' => 2],
+            ['id' => 4, 'name' => 'Tanpa Akses', 'email' => 'no-access@example.test', 'password' => 'unused', 'id_role' => 4, 'id_unit_kerja' => 2],
         ]);
         DB::table('monthly_branch_reports')->insert([
             'id' => 1,
@@ -185,5 +207,36 @@ class MonthlyBranchReportAccessTest extends TestCase
             ->assertSee('laporan-2025.xlsx')
             ->assertDontSee('laporan-2026.xlsx')
             ->assertDontSee('laporan-jatim-2025.xlsx');
+    }
+
+    public function test_user_with_report_submenu_permission_can_open_the_admin_dashboard(): void
+    {
+        $secretariatUser = new User();
+        $secretariatUser->forceFill([
+            'id' => 3,
+            'name' => 'Zarfian',
+            'id_role' => 3,
+            'id_unit_kerja' => 2,
+        ]);
+
+        $this->actingAs($secretariatUser)
+            ->get('/laporanPenjualan')
+            ->assertOk()
+            ->assertSee('Monitoring Laporan Bulanan Cabang Admin');
+    }
+
+    public function test_user_without_report_submenu_permission_cannot_open_the_dashboard(): void
+    {
+        $user = new User();
+        $user->forceFill([
+            'id' => 4,
+            'name' => 'Tanpa Akses',
+            'id_role' => 4,
+            'id_unit_kerja' => 2,
+        ]);
+
+        $this->actingAs($user)
+            ->get('/laporanPenjualan')
+            ->assertForbidden();
     }
 }
