@@ -59,7 +59,8 @@
         /* Header area */
         .header-box {
             border: 1px solid #000;
-            background-color: #f2f2f2;
+            border-bottom: 2px solid #1e3a8a;
+            background-color: #eef4fb;
             padding: 3px 5px;
         }
 
@@ -67,12 +68,14 @@
             font-size: 13px;
             font-weight: bold;
             margin: 0;
+            color: #1e3a8a;
             text-transform: uppercase;
         }
 
         .header-box p {
             font-size: 11px;
             margin: 2px 0 0 0;
+            color: #475569;
         }
 
         /* Status Kecepatan */
@@ -97,9 +100,10 @@
         }
 
         .bg-gray {
-            background-color: #f2f2f2;
+            background-color: #f1f5f9;
             font-weight: bold;
             padding: 3px 8px !important;
+            overflow-wrap: anywhere;
         }
 
         /* Bagian Perihal */
@@ -116,12 +120,13 @@
         }
 
         .perihal-box {
-            border: 1px solid;
-            background-color: #f2f2f2;
+            border: 1px solid #cbd5e1;
+            background-color: #f8fafc;
             padding: 9px;
             font-weight: bold;
             font-size: 13px;
             height: 1cm;
+            overflow-wrap: anywhere;
         }
 
         /* === TABEL DISPOSISI BAWAH === */
@@ -142,16 +147,21 @@
         }
 
         .bg-dark {
-            background-color: #e7e4e4;
-            color: #161616;
+            background-color: #e8eef6;
+            color: #1e3a8a;
             font-weight: bold;
             text-align: center;
+        }
+
+        .tabel-disposisi td {
+            border: 1px solid #cbd5e1;
         }
 
         .checkbox {
             float: right;
             margin-right: 15px;
             font-weight: normal;
+            color: #475569;
         }
 
         .b-bottom td {
@@ -184,6 +194,106 @@
             font-size: 10px;
             color: #000;
             margin: 1%;
+        }
+
+        @media screen {
+            body {
+                padding: 16px 0;
+                background-color: #eef2f7;
+                color: #1f2937;
+            }
+
+            .page-half-a4 {
+                width: calc(100% - 32px);
+                max-width: 760px;
+                height: auto;
+                min-height: 0;
+                padding: clamp(16px, 3vw, 28px);
+                margin: 16px auto;
+                overflow: visible;
+                background-color: #fff;
+                border-radius: 12px;
+                box-shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+            }
+
+            .form-container {
+                height: auto;
+                padding: 8px;
+                border-width: 1px;
+                border-radius: 8px;
+            }
+
+            .footer-sistem {
+                position: static;
+                gap: 8px 16px;
+                flex-wrap: wrap;
+                margin: 12px 0 0;
+                color: #64748b;
+            }
+        }
+
+        @media screen and (max-width: 560px) {
+            body {
+                padding: 8px 0;
+            }
+
+            .page-half-a4 {
+                width: calc(100% - 16px);
+                padding: 12px;
+                margin: 8px auto;
+            }
+
+            .form-container {
+                padding: 6px;
+            }
+
+            .meta-table {
+                table-layout: fixed;
+            }
+
+            .meta-table td {
+                padding: 4px 3px;
+                font-size: 10px;
+            }
+
+            .meta-table tr:not(:first-child) td:nth-child(1) {
+                width: 20% !important;
+            }
+
+            .meta-table tr:not(:first-child) td:nth-child(2) {
+                width: 3% !important;
+            }
+
+            .meta-table tr:not(:first-child) td:nth-child(3) {
+                width: 35% !important;
+            }
+
+            .meta-table tr:not(:first-child) td:nth-child(4) {
+                width: 20% !important;
+            }
+
+            .meta-table tr:not(:first-child) td:nth-child(5) {
+                width: 3% !important;
+            }
+
+            .meta-table tr:not(:first-child) td:nth-child(6) {
+                width: 19% !important;
+            }
+
+            .perihal-box {
+                height: auto;
+                min-height: 1cm;
+            }
+
+            .tabel-disposisi td {
+                padding: 10px 5px;
+                font-size: 10px;
+                overflow-wrap: anywhere;
+            }
+
+            .checkbox {
+                margin-right: 2px;
+            }
         }
     </style>
 </head>
