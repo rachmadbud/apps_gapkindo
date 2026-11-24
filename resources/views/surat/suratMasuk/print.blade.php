@@ -295,6 +295,49 @@
                 margin-right: 2px;
             }
         }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: #eef2f7;
+                color: #1f2937;
+            }
+
+            .page-half-a4 {
+                width: 50%;
+                height: 18.85cm;
+                padding: 16px 28px 28px;
+                margin: 0 0 0 auto;
+                overflow: hidden;
+                background-color: #fff;
+                border-radius: 12px;
+                box-shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .form-container {
+                height: auto;
+                padding: 8px;
+                border-width: 1px;
+                border-radius: 8px;
+            }
+
+            .tabel-disposisi td {
+                padding: 8px 5px;
+            }
+
+            .footer-sistem {
+                position: absolute;
+                right: 28px;
+                bottom: 8px;
+                left: 28px;
+                gap: 8px 16px;
+                margin: 0;
+                color: #64748b;
+            }
+        }
     </style>
 </head>
 
